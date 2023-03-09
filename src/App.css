@@ -83,8 +83,60 @@
     font-size: 1.25em;
 }
 
+.navbar-container {
+    position:fixed;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    border-bottom: 1px solid #e7e9ec;
+    box-shadow: 0px 7px 10px -15px #111;   
+    top: 0;
+    left: 0;
+    right: 0;
+}
 
 .navbar-logo {
-    height: 4em;
+    height: 3.25em;
     width: auto;
 }
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
+.feed-container {
+    background-color: #f0f2f5;
+    height: 100vh;
+    padding-top: 5em;
+}
+
+.feed-center-panel {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.make-a-post-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 30em;
+    height: 5em;
+    border-radius: 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+}
+
+.make-a-post-container > form {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20em;
+    gap: 10px;
+}
+
