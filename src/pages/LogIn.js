@@ -1,6 +1,9 @@
 import facebookLogo from "../assets/login-logo.svg"
+import React, {useContext} from 'react';
+import AuthContext from '../context/AuthContext';
 
 function LogIn() {
+    let {loginUser} = useContext(AuthContext);
     return (
       <div>
         <div className="left-panel">
@@ -9,9 +12,9 @@ function LogIn() {
         </div>
         <div className="right-panel">
             <div className="LogIn-container">
-                <form>
-                    <input type="text" placeholder="Email"/>
-                    <input type="text" placeholder="Password"/>
+                <form onSubmit={loginUser}>
+                    <input type="email" name="email" placeholder="Email"/>
+                    <input type="password" name="password" placeholder="Password"/>
                     <button type="submit">Log In</button>
                 </form>
             </div>
