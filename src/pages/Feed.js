@@ -71,7 +71,10 @@ function Feed() {
           <div className="feed-posts">
             {posts.slice(0).reverse().map((post, index) => {
                       return (
-                        <div className="post" key={index}>{post.author}: {post.body}</div>
+                        <div className="post" key={index}>
+                          <p>{post.author}: {post.body}</p>
+                          <img className="post-image" src={post.image} alt=""/>
+                        </div>
                       )})}
           </div>
         </div>
