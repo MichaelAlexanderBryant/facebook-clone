@@ -1,0 +1,89 @@
+:root {
+    font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;;
+}
+
+.login-container {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.left-panel, .right-panel {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+
+}
+
+.left-panel {
+    align-items: end; 
+    grid-column: 1 / 2;
+}
+
+.right-panel {
+    align-items: start; 
+    grid-column: 2 / 3;
+}
+
+.logo-subtitle-container {
+    width: 35em;
+}
+
+.login-logo {
+    height: 7em;
+    width: auto;
+}
+
+.subtitle {
+    margin: 0;
+    padding: 0 1.25em;
+    font-size: 1.75em;
+    font-weight: 100;
+}
+
+
+.login-form-container {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 2em;
+    background-color: white;
+    border-radius: 5px;
+}
+
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.login-form > input {
+    width: 23em;
+    height: 3em;
+    border: 1px solid #dddfe2;
+    border-radius: 5px;
+    padding: 0 1em;
+}
+
+.login-form > input::placeholder {
+    color: #90949c;
+    font-size: 1.25em;
+}
+
+.login-form > button {
+    width: auto;
+    height: 2em;
+    background-color: #1877f2;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.25em;
+}
+
+
+.navbar-logo {
+    height: 4em;
+    width: auto;
+}
