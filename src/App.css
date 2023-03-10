@@ -105,6 +105,11 @@ html {
     width: auto;
 }
 
+.nav-picture {
+    clip-path: circle();
+    width: 2.5em;
+}
+
 .nav-links {
     display: flex;
     align-items: center;
