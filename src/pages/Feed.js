@@ -8,10 +8,12 @@ function Feed() {
   const navigate = useNavigate();
 
   let [posts, setPosts] = useState([]);
+  let [accounts, setAccounts] = useState([]);
   let {authTokens, user, userInfo, logoutUser} = useContext(AuthContext);
 
   useEffect(() => {
-      getPosts()
+      getPosts();
+      getAccounts();
   },[])
 
   let getPosts = async () => {
@@ -29,7 +31,25 @@ function Feed() {
       } else if (response.statusText === 'Unauthorized') {
           logoutUser();
       };
-  }
+  };
+
+  let getAccounts = async () => {
+    let response = await fetch('http://127.0.0.1:8000/api/accounts/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + String(authTokens.access) 
+        }
+    })
+    let data = await response.json()
+
+    if (response.status === 200) {
+        console.log(data)
+        setAccounts(data);
+    } else if (response.statusText === 'Unauthorized') {
+        logoutUser();
+    };
+};
 
   let submitPost = async (e) => {
 
@@ -71,9 +91,14 @@ function Feed() {
           <div className="feed-posts">
             {posts.slice(0).reverse().map((post, index) => {
                 if ((userInfo.friends.includes(post.author)) || (post.author===user.user_id)){
+                      let postAuthor = accounts.filter((elt) => {
+                        return elt.id === post.author
+                      })
+                      console.log(postAuthor)
                       return (
+                        
                         <div className="post" key={index}>
-                          <p>{post.author}: {post.body}</p>
+                          <p>{postAuthor[0].first_name} {postAuthor[0].last_name}: {post.body}</p>
                           <img className="post-image" src={post.image} alt=""/>
                         </div>
                       )
