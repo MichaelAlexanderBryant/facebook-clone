@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import AuthContext from "../context/AuthContext";
 import defaultProfilePicture from "../assets/default-profile-picture.png";
+import homeIcon from "../assets/home-icon.png";
+import friendsIcon from "../assets/friends-icon.png";
+import allUsersIcon from "../assets/all-users-icon.png";
 
 function Feed() {
 
@@ -82,17 +85,30 @@ function Feed() {
         <NavBar/>
         <div className="menu-container">
           <ul className="top-menu-list">
-            <li className="menu-item">Home</li>
-            <li className="menu-item">My Profile</li>
+            <li className="menu-item">
+              <img src={homeIcon} alt="Home" className="icon"/>
+              <span>Home</span>
+            </li>
+            <li className="menu-item">
+              {userInfo.profile_picture ? 
+                <img className="icon" src={userInfo.profile_picture} alt={userInfo.first_name + " " + userInfo.last_name}/>
+              : <img className="icon" src={defaultProfilePicture} alt=""/>}
+              <span>{userInfo.first_name + " " + userInfo.last_name}</span>
+              </li>
           </ul>
           <ul className="bottom-menu-list">
-            <li className="menu-item">Friends</li>
-            <li className="menu-item">All Users</li>
-            <li className="menu-item">Groups</li>
+          <li className="menu-item">
+              <img src={friendsIcon} alt="Friends" className="icon"/>
+              <span>Friends</span>
+            </li>
+            <li className="menu-item">
+              <img src={allUsersIcon} alt="All users" className="icon"/>
+              <span>All Users</span>
+            </li>
           </ul>
         </div>
         <div className="user-list-container">
-          <h1 className="contacts-header">Contacts</h1>
+          <h1 className="contacts-header">Friends</h1>
           {userInfo.friends && userInfo.friends.length > 0 ?
           <ul className="user-list">
             {accounts.map((person, index) => {
@@ -107,7 +123,7 @@ function Feed() {
               } else { return null }
             })}
           </ul>
-          : <p className="no-contacts">No contacts to display</p>}
+          : <p className="no-contacts">No friends to display</p>}
         </div>
         <div className="feed-center-panel">
           <div className="make-a-post-container">

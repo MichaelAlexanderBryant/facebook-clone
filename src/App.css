@@ -130,6 +130,14 @@ html {
 .menu-item {
     padding-bottom: 1em;
     font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.icon {
+    clip-path: circle();
+    width: 1.5em;
 }
 
 .user-list-container {
@@ -159,9 +167,6 @@ html {
     align-items: center;
     gap: 1em;
     padding-bottom: 1em;
-
-
-
 }
 
 .feed-container {
