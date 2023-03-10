@@ -35,6 +35,31 @@ export const AuthProvider = ({children}) => {
         };
     }
 
+    const [userInfo, setUserInfo] = useState({})
+
+    let getUserInfo = async () => {
+        if (user != null){
+        let response = await fetch(`http://127.0.0.1:8000/api/accounts/${user.user_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access) 
+            },
+        });
+        let data = await response.json()
+
+        if (response.status === 200) {
+            setUserInfo(data);
+        } else if (response.statusText === 'Unauthorized') {
+            logoutUser();
+        };
+    }
+    }
+
+    useEffect (() => {
+        getUserInfo();
+    },[user])
+
     // let signupUser = async (e) => {
     //     e.preventDefault();
     //     let response = await fetch('http://127.0.0.1:8000/api/dj-rest-auth/registration/', {
@@ -87,6 +112,7 @@ export const AuthProvider = ({children}) => {
 
     let contextData = {
         user:user,
+        userInfo: userInfo,
         authTokens:authTokens,
         loginUser:loginUser,
         // signupUser:signupUser,

@@ -8,7 +8,7 @@ function Feed() {
   const navigate = useNavigate();
 
   let [posts, setPosts] = useState([]);
-  let {authTokens, user, logoutUser} = useContext(AuthContext);
+  let {authTokens, user, userInfo, logoutUser} = useContext(AuthContext);
 
   useEffect(() => {
       getPosts()
@@ -70,12 +70,15 @@ function Feed() {
           </div>
           <div className="feed-posts">
             {posts.slice(0).reverse().map((post, index) => {
+                if ((userInfo.friends.includes(post.author)) || (post.author===user.user_id)){
                       return (
                         <div className="post" key={index}>
                           <p>{post.author}: {post.body}</p>
                           <img className="post-image" src={post.image} alt=""/>
                         </div>
-                      )})}
+                      )
+                }
+                })}
           </div>
         </div>
       </div>
