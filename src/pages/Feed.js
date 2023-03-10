@@ -80,21 +80,34 @@ function Feed() {
     return (
       <div className="feed-container">
         <NavBar/>
+        <div className="menu-container">
+          <ul className="top-menu-list">
+            <li className="menu-item">Home</li>
+            <li className="menu-item">My Profile</li>
+          </ul>
+          <ul className="bottom-menu-list">
+            <li className="menu-item">Friends</li>
+            <li className="menu-item">All Users</li>
+            <li className="menu-item">Groups</li>
+          </ul>
+        </div>
         <div className="user-list-container">
           <h1 className="contacts-header">Contacts</h1>
+          {userInfo.friends && userInfo.friends.length > 0 ?
           <ul className="user-list">
-            {accounts.map((person) => {
+            {accounts.map((person, index) => {
               if ((person.id !== user.user_id) && (userInfo.friends.includes(person.id))) {
                 return (
-                <li className="user-list-item">
+                <li className="user-list-item" key={"contact " + index}>
                   {person.profile_picture ? 
                     <img className="post-author-image" src={person.profile_picture} alt=""/>
                     : <img className="post-author-image" src={defaultProfilePicture} alt=""/>}
                   <span>{person.first_name + " " + person.last_name}</span>
                 </li>)
-              }
+              } else { return null }
             })}
           </ul>
+          : <p className="no-contacts">No contacts to display</p>}
         </div>
         <div className="feed-center-panel">
           <div className="make-a-post-container">

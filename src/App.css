@@ -111,6 +111,27 @@ html {
     gap: 2em;
 }
 
+.menu-container {
+    position: fixed;
+    top: 4.5em;
+    left: 1em;
+    right: 98em;
+}
+
+.top-menu-list, .bottom-menu-list {
+    padding-left: 0em;
+    list-style: none;
+}
+
+.top-menu-list {
+    border-bottom: 1px solid #d0d2d6;
+}
+
+.menu-item {
+    padding-bottom: 1em;
+    font-size: 1em;
+}
+
 .user-list-container {
     position: fixed;
     top: 5.5em;
@@ -119,10 +140,14 @@ html {
 
 }
 
-.contacts-header{
+.contacts-header, .no-contacts{
     margin:0;
     padding-left: 2.25em;
     font-size: 1em;
+}
+
+.no-contacts {
+    padding-top: 1em;
 }
 
 .user-list {
