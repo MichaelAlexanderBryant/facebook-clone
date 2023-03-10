@@ -135,7 +135,7 @@ html {
     align-items: center;
     background-color: white;
     width: 40em;
-    height: 5em;
+    height: 6em;
     border-radius: 5px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     padding: 1em;
@@ -146,18 +146,47 @@ html {
     display:flex;
     flex-direction: column;
     justify-content: center;
-    width: 20em;
+    width: 100%;
     gap: 10px;
+}
+
+.user-text-post {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.5em;
+}
+
+.user-text-input {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: none;
+    background-color: #f0f2f5;
+    padding: 0 1em;
 }
 
 .post {
     margin-bottom: 15px;
     height: auto;
+    display:flex;
+    flex-direction:column;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
 }
 
 .post-author-image {
     clip-path: circle();
     width: 2.5em;
+}
+
+.post-text {
+    width: 100%;
 }
 
 .post-image {

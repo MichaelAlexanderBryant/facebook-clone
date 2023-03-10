@@ -83,9 +83,14 @@ function Feed() {
         <div className="feed-center-panel">
           <div className="make-a-post-container">
             <form onSubmit={submitPost}>
-              <input type="text" name="body" placeholder={"What's on your mind, " + userInfo.first_name + "?"}/>
-              <input type="file" accept="image/png, image/jpeg" name="image"/>
-              <button type="submit">Post</button>  
+              <div className="user-text-post">
+              {userInfo.profile_picture ? 
+                              <img className="post-author-image" src={userInfo.profile_picture} alt=""/>
+                              : <img className="post-author-image" src={defaultProfilePicture} alt=""/>}
+              <input className="user-text-input" type="text" name="body" placeholder={"What's on your mind, " + userInfo.first_name + "?"}/>
+              </div>
+              <input className="image-input" type="file" accept="image/png, image/jpeg" name="image"/>
+              <button className="post-button" type="submit">Post</button>  
             </form>
           </div>
           <div className="feed-posts">
@@ -96,10 +101,13 @@ function Feed() {
                       });                
                       return (
                         <div className="post" key={index}>
-                          {postAuthor[0].profile_picture ? 
-                            <img className="post-author-image" src={postAuthor[0].profile_picture} alt=""/>
-                            : <img className="post-author-image" src={defaultProfilePicture} alt=""/>}
-                          <p>{postAuthor[0].first_name} {postAuthor[0].last_name}: {post.body}</p>
+                          <div className="post-header">
+                            {postAuthor[0].profile_picture ? 
+                              <img className="post-author-image" src={postAuthor[0].profile_picture} alt=""/>
+                              : <img className="post-author-image" src={defaultProfilePicture} alt=""/>}
+                            <p>{postAuthor[0].first_name} {postAuthor[0].last_name}</p>
+                          </div>
+                          <p className="post-text">{post.body}</p>
                           <img className="post-image" src={post.image} alt=""/>
                         </div>
                       )
