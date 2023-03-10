@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import AuthContext from "../context/AuthContext";
+import defaultProfilePicture from "../assets/default-profile-picture.png";
 
 function Feed() {
 
@@ -44,7 +45,6 @@ function Feed() {
     let data = await response.json()
 
     if (response.status === 200) {
-        console.log(data)
         setAccounts(data);
     } else if (response.statusText === 'Unauthorized') {
         logoutUser();
@@ -83,27 +83,30 @@ function Feed() {
         <div className="feed-center-panel">
           <div className="make-a-post-container">
             <form onSubmit={submitPost}>
-              <input type="text" name="body" placeholder="What's on your mind?"/>
+              <input type="text" name="body" placeholder={"What's on your mind, " + userInfo.first_name + "?"}/>
               <input type="file" accept="image/png, image/jpeg" name="image"/>
               <button type="submit">Post</button>  
             </form>
           </div>
           <div className="feed-posts">
-            {posts.slice(0).reverse().map((post, index) => {
-                if ((userInfo.friends.includes(post.author)) || (post.author===user.user_id)){
+            {accounts.length > 0 && posts.length > 0 ? posts.slice(0).reverse().map((post, index) => {
+                if ((userInfo.friends.includes(post.author)) || (post.author === user.user_id)){
                       let postAuthor = accounts.filter((elt) => {
                         return elt.id === post.author
-                      })
-                      console.log(postAuthor)
+                      });                
                       return (
-                        
                         <div className="post" key={index}>
+                          {postAuthor[0].profile_picture ? 
+                            <img className="post-author-image" src={postAuthor[0].profile_picture} alt=""/>
+                            : <img className="post-author-image" src={defaultProfilePicture} alt=""/>}
                           <p>{postAuthor[0].first_name} {postAuthor[0].last_name}: {post.body}</p>
                           <img className="post-image" src={post.image} alt=""/>
                         </div>
                       )
+                } else {
+                  return null;
                 }
-                })}
+                }):""}
           </div>
         </div>
       </div>
