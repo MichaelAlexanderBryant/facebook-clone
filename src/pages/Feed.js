@@ -80,6 +80,22 @@ function Feed() {
     return (
       <div className="feed-container">
         <NavBar/>
+        <div className="user-list-container">
+          <h1 className="contacts-header">Contacts</h1>
+          <ul className="user-list">
+            {accounts.map((person) => {
+              if ((person.id !== user.user_id) && (userInfo.friends.includes(person.id))) {
+                return (
+                <li className="user-list-item">
+                  {person.profile_picture ? 
+                    <img className="post-author-image" src={person.profile_picture} alt=""/>
+                    : <img className="post-author-image" src={defaultProfilePicture} alt=""/>}
+                  <span>{person.first_name + " " + person.last_name}</span>
+                </li>)
+              }
+            })}
+          </ul>
+        </div>
         <div className="feed-center-panel">
           <div className="make-a-post-container">
             <form onSubmit={submitPost}>

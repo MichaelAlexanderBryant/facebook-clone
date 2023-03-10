@@ -111,6 +111,34 @@ html {
     gap: 2em;
 }
 
+.user-list-container {
+    position: fixed;
+    top: 5.5em;
+    left: 92.5em;
+    right: 0;
+
+}
+
+.contacts-header{
+    margin:0;
+    padding-left: 2.25em;
+    font-size: 1em;
+}
+
+.user-list {
+    list-style: none;
+}
+
+.user-list-item {
+    display:flex;
+    align-items: center;
+    gap: 1em;
+    padding-bottom: 1em;
+
+
+
+}
+
 .feed-container {
     background-color: #f0f2f5;
     height: 100vh;
