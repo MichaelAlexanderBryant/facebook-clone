@@ -1,10 +1,17 @@
 :root {
     font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+    
+
 }
 
 html {
     height: 100vh;
     background-color: #f0f2f5;
+}
+
+body {
+    margin: 0;
+    padding: 0;
 }
 
 .login-container {
@@ -98,6 +105,7 @@ html {
     left: 0;
     right: 0;
     padding-right: 1em;
+    z-index: 1;
 }
 
 .navbar-logo {
@@ -121,6 +129,24 @@ html {
     top: 4.5em;
     left: 1em;
     right: 98em;
+}
+
+.mini-menu {
+    height: 100vh;
+}
+
+.mini-menu-background {
+    background-color: white;
+    width: 3.5em;
+    height: 100%;
+}
+
+.mini-menu-container {
+    position: fixed;
+    top: 4.5em;
+    left: 1em;
+    right: 113em;
+    background-color: white;
 }
 
 .top-menu-list, .bottom-menu-list {
