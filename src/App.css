@@ -12,6 +12,12 @@ html {
 body {
     margin: 0;
     padding: 0;
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 .login-container {
@@ -177,10 +183,9 @@ body {
 
 .user-list-container {
     position: fixed;
-    top: 5.5em;
-    left: 92.5em;
+    top: 0;
     right: 0;
-
+    padding: 5em 10em 0 0;
 }
 
 .contacts-header, .no-contacts{

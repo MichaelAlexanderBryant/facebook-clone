@@ -85,15 +85,19 @@ function Feed() {
         <NavBar/>
         <div className="menu-container">
           <ul className="top-menu-list">
-            <li className="menu-item">
-              <img src={homeIcon} alt="Home" className="icon"/>
-              <span>Home</span>
+            <li>
+              <a href="/feed" className="menu-item">
+                <img src={homeIcon} alt="Home" className="icon"/>
+                <span>Home</span>
+              </a>
             </li>
-            <li className="menu-item">
+            <li>
+              <a href={"/profile/" + user.user_id} className="menu-item">
               {userInfo.profile_picture ? 
                 <img className="icon" src={userInfo.profile_picture} alt={userInfo.first_name + " " + userInfo.last_name}/>
               : <img className="icon" src={defaultProfilePicture} alt=""/>}
               <span>{userInfo.first_name + " " + userInfo.last_name}</span>
+              </a>
               </li>
           </ul>
           <ul className="bottom-menu-list">
@@ -114,11 +118,13 @@ function Feed() {
             {accounts.map((person, index) => {
               if ((person.id !== user.user_id) && (userInfo.friends.includes(person.id))) {
                 return (
-                <li className="user-list-item" key={"contact " + index}>
-                  {person.profile_picture ? 
-                    <img className="post-author-image" src={person.profile_picture} alt=""/>
-                    : <img className="post-author-image" src={defaultProfilePicture} alt=""/>}
-                  <span>{person.first_name + " " + person.last_name}</span>
+                <li key={"contact " + index}>
+                  <a href={"/profile/" + person.id} className="user-list-item">
+                    {person.profile_picture ? 
+                      <img className="post-author-image" src={person.profile_picture} alt=""/>
+                      : <img className="post-author-image" src={defaultProfilePicture} alt=""/>}
+                    <span>{person.first_name + " " + person.last_name}</span>
+                  </a>
                 </li>)
               } else { return null }
             })}
@@ -140,17 +146,19 @@ function Feed() {
           </div>
           <div className="feed-posts">
             {accounts.length > 0 && posts.length > 0 ? posts.slice(0).reverse().map((post, index) => {
-                if ((userInfo.friends.includes(post.author)) || (post.author === user.user_id)){
+                if (userInfo.friends && ((userInfo.friends.includes(post.author)) || (post.author === user.user_id))){
                       let postAuthor = accounts.filter((elt) => {
                         return elt.id === post.author
                       });                
                       return (
                         <div className="post" key={index}>
                           <div className="post-header">
-                            {postAuthor[0].profile_picture ? 
-                              <img className="post-author-image" src={postAuthor[0].profile_picture} alt=""/>
-                              : <img className="post-author-image" src={defaultProfilePicture} alt=""/>}
-                            <p>{postAuthor[0].first_name} {postAuthor[0].last_name}</p>
+                            <a href={"/profile/" + postAuthor[0].id} className="post-header">
+                              {postAuthor[0].profile_picture ? 
+                                <img className="post-author-image" src={postAuthor[0].profile_picture} alt=""/>
+                                : <img className="post-author-image" src={defaultProfilePicture} alt=""/>}
+                              <p>{postAuthor[0].first_name} {postAuthor[0].last_name}</p>
+                            </a>
                           </div>
                           <p className="post-text">{post.body}</p>
                           <img className="post-image" src={post.image} alt=""/>
