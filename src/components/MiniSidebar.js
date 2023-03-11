@@ -28,8 +28,10 @@ function MiniSidebar() {
                         </li>
                     </ul>
                     <ul className="bottom-menu-list">
-                    <li className="menu-item">
-                        <img src={friendsIcon} alt="Friends" className="icon"/>
+                    <li>
+                        <a href="/friends" className="menu-item">
+                            <img src={friendsIcon} alt="Friends" className="icon"/>
+                        </a>
                     </li>
                     <li>
                         <a href="/allusers" className="menu-item">

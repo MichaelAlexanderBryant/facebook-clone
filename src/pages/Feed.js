@@ -101,9 +101,11 @@ function Feed() {
               </li>
           </ul>
           <ul className="bottom-menu-list">
-          <li className="menu-item">
-              <img src={friendsIcon} alt="Friends" className="icon"/>
-              <span>Friends</span>
+          <li>
+              <a href="/friends" className="menu-item">
+                <img src={friendsIcon} alt="Friends" className="icon"/>
+                <span>Friends</span>
+              </a>
             </li>
             <li>
               <a href="/allusers" className="menu-item">
