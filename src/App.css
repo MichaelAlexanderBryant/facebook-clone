@@ -132,6 +132,7 @@ body {
 }
 
 .mini-menu {
+    position: fixed;
     height: 100vh;
 }
 
@@ -139,6 +140,8 @@ body {
     background-color: white;
     width: 3.5em;
     height: 100%;
+    border-right: 1px solid #f9fafb;
+    
 }
 
 .mini-menu-container {
@@ -147,6 +150,7 @@ body {
     left: 0;
     padding: 4.5em 0 0 1em;
     background-color: white;
+
 }
 
 .top-menu-list, .bottom-menu-list {
@@ -281,4 +285,70 @@ body {
 .post-image {
     width: 100%;
     height: auto;
+}
+
+.center-profile-header {
+   display:flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+}
+
+.profile-header {
+    width: 100vw;
+    padding: 4.5em 0 1em 4.5em;
+    background-color: white;
+    border-bottom: 1px solid #f0f2f5;
+}
+
+.left-side-profile-header {
+
+}
+
+.profile-picture {
+    clip-path: circle();
+    width: 12em;
+}
+
+.profile-content {
+    width: 100%;
+    margin-top: 1em;
+    margin-left: 4.5em;
+
+}
+
+.friends {
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    background-color: white;
+    width: 25em;
+}
+.friends-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1em;
+    border-radius: 5px;
+    
+}
+
+.center-profile-content {
+    display:flex;
+    justify-content: center;
+}
+
+.posts {
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    background-color: white;
+    width: 40em;
+
+}
+
+.grid-profile-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    
+    gap: 2em;
 }
