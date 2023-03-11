@@ -11,28 +11,29 @@ function MiniSidebar() {
 
     return (
         <div className="mini-menu">
-            <div className="mini-menu-background">alskdjf</div>
-            <div className="mini-menu-container">
-                <ul className="top-menu-list">
-                <li className="menu-item">
-                    <img src={homeIcon} alt="Home" className="icon"/>
-                </li>
-                <li className="menu-item">
-                    {userInfo.profile_picture ? 
-                    <img className="icon" src={userInfo.profile_picture} alt={userInfo.first_name + " " + userInfo.last_name}/>
-                    : <img className="icon" src={defaultProfilePicture} alt=""/>}
+            <div className="mini-menu-background">
+                <div className="mini-menu-container">
+                    <ul className="top-menu-list">
+                    <li className="menu-item">
+                        <img src={homeIcon} alt="Home" className="icon"/>
                     </li>
-                </ul>
-                <ul className="bottom-menu-list">
-                <li className="menu-item">
-                    <img src={friendsIcon} alt="Friends" className="icon"/>
-                </li>
-                <li className="menu-item">
-                    <img src={allUsersIcon} alt="All users" className="icon"/>
-                </li>
-                </ul>
+                    <li className="menu-item">
+                        {userInfo.profile_picture ? 
+                        <img className="icon" src={userInfo.profile_picture} alt={userInfo.first_name + " " + userInfo.last_name}/>
+                        : <img className="icon" src={defaultProfilePicture} alt=""/>}
+                        </li>
+                    </ul>
+                    <ul className="bottom-menu-list">
+                    <li className="menu-item">
+                        <img src={friendsIcon} alt="Friends" className="icon"/>
+                    </li>
+                    <li className="menu-item">
+                        <img src={allUsersIcon} alt="All users" className="icon"/>
+                    </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
     )
 }
 

@@ -126,9 +126,9 @@ body {
 
 .menu-container {
     position: fixed;
-    top: 4.5em;
-    left: 1em;
-    right: 98em;
+    top: 0;
+    left: 0;
+    padding: 4.5em 0 0 1em;
 }
 
 .mini-menu {
@@ -143,9 +143,9 @@ body {
 
 .mini-menu-container {
     position: fixed;
-    top: 4.5em;
-    left: 1em;
-    right: 113em;
+    top: 0;
+    left: 0;
+    padding: 4.5em 0 0 1em;
     background-color: white;
 }
 
