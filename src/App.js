@@ -6,6 +6,7 @@ import { AuthProvider } from './context/AuthContext';
 import PrivateRouteLogIn from './utils/PrivateRouteLogIn';
 import PrivateRouteFeed from './utils/PrivateRouteFeed';
 import Profile from './pages/Profile';
+import AllUsers from './pages/AllUsers';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
               <Route path="/feed" element={<Feed/>}/>
             </Route>
             <Route path="/profile/:id" element={<Profile/>}/>
+            <Route path="/allusers" element={<AllUsers/>}/>
         </Routes>
       </AuthProvider>
     </div>

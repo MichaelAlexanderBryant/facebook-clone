@@ -19,7 +19,7 @@ function MiniSidebar() {
                             <img src={homeIcon} alt="Home" className="icon"/>
                         </a>
                     </li>
-                    <li className="menu-item">
+                    <li>
                         <a href={"/profile/" + user.user_id} className="menu-item">
                             {userInfo.profile_picture ? 
                             <img className="icon" src={userInfo.profile_picture} alt={userInfo.first_name + " " + userInfo.last_name}/>
@@ -31,8 +31,10 @@ function MiniSidebar() {
                     <li className="menu-item">
                         <img src={friendsIcon} alt="Friends" className="icon"/>
                     </li>
-                    <li className="menu-item">
-                        <img src={allUsersIcon} alt="All users" className="icon"/>
+                    <li>
+                        <a href="/allusers" className="menu-item">
+                            <img src={allUsersIcon} alt="All users" className="icon"/>
+                        </a>
                     </li>
                     </ul>
                 </div>

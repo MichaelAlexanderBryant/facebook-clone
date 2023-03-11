@@ -105,9 +105,11 @@ function Feed() {
               <img src={friendsIcon} alt="Friends" className="icon"/>
               <span>Friends</span>
             </li>
-            <li className="menu-item">
-              <img src={allUsersIcon} alt="All users" className="icon"/>
-              <span>All Users</span>
+            <li>
+              <a href="/allusers" className="menu-item">
+                <img src={allUsersIcon} alt="All users" className="icon"/>
+                <span>All Users</span>
+              </a>
             </li>
           </ul>
         </div>

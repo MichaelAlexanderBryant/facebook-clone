@@ -164,6 +164,7 @@ a {
     list-style: none;
 }
 
+
 .top-menu-list {
     border-bottom: 1px solid #d0d2d6;
 }
@@ -175,6 +176,7 @@ a {
     align-items: center;
     gap: 1em;
 }
+
 
 .icon {
     clip-path: circle();
@@ -322,12 +324,16 @@ a {
 
 }
 
+.flex-profile-content {
+    display: flex;
+}
+
 .friends {
     padding: 1em;
     border-radius: 5px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background-color: white;
-    width: 25em;
+    width: 29em;
 }
 .friends-header {
     display: flex;
@@ -347,13 +353,60 @@ a {
     border-radius: 5px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background-color: white;
-    width: 40em;
+    width: 40.5em;
+    margin-right: 5em;
+    margin-left: 1em;
 
 }
 
-.grid-profile-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    
-    gap: 2em;
+.allusers-container {
+    padding: 3.5em 0 0 5em;
+}
+
+.card-container {
+    display:flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.user-card {
+    width: 12em;
+    height: 20em;
+    background-color: white;
+
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.allusers-img-name {
+
+    height: 100%;
+}
+
+.allusers-img-container {
+    height: 12em;
+    width: 12em;
+
+}
+
+.allusers-img {
+    height: 100%;
+    width: 100%;
+    object-fit:cover;
+}
+
+.allusers-name {
+    padding-left: 1em;
+    font-weight: bold;
+}
+
+.allusers-btn {
+    width: 90%;
+    margin-bottom: 1em;
 }
