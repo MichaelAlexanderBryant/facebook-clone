@@ -135,11 +135,13 @@ a {
     top: 0;
     left: 0;
     padding: 4.5em 0 0 1em;
+    width: 17em;
 }
 
 .mini-menu {
     position: fixed;
     height: 100vh;
+
 }
 
 .mini-menu-background {

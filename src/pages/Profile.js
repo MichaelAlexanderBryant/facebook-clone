@@ -45,7 +45,7 @@ function Profile() {
                         </div>
                         {String(user.user_id) === userId ? 
                             <div><button type="button">Edit Profile</button></div>
-                            : <div>{userInfo.friends && userInfo.friends.includes(userId)?<button type="button">Add Friend</button>:<button type="button">Unfriend</button>}<button type="button">Message User</button></div>}
+                            : <div>{userInfo.friends && userInfo.friends.includes(parseInt(userId))?<button type="button">Unfriend</button>:<button type="button">Add Friend</button>}<button type="button">Message User</button></div>}
                     </div>
                 </div>
                 <div className="profile-content">
