@@ -42,12 +42,16 @@ function AllUsers() {
                             <div className="user-card" key={idx}>
                                 <div className="allusers-img-name">
                                     <div className="allusers-img-container">
-                                        {person.profile_picture ?
-                                        <img src={person.profile_picture} alt="" className="allusers-img"/>
-                                        : <img src={defaultProfilePicture} alt="" className="allusers-img"/>
-                                        }
+                                        <a href={"/profile/" + person.id}>
+                                            {person.profile_picture ?
+                                            <img src={person.profile_picture} alt="" className="allusers-img"/>
+                                            : <img src={defaultProfilePicture} alt="" className="allusers-img"/>
+                                            }
+                                        </a>
                                     </div>
-                                    <p className="allusers-name">{person.first_name + " " + person.last_name}</p>
+                                    <a href={"/profile/" + person.id}>
+                                        <p className="allusers-name">{person.first_name + " " + person.last_name}</p>
+                                    </a>
                                 </div>
                                 {parseInt(person.id) !== parseInt(user.user_id) ?
                                     (userInfo.friends.includes(person.id) ?
