@@ -5,7 +5,7 @@ import AuthContext from "../context/AuthContext";
 import defaultProfilePicture from "../assets/default-profile-picture.png";
 import UserCard from "../components/UserCard";
 
-function AllUsers(props) {
+function Users(props) {
 
     let [friendRequests, setFriendRequests] = useState([]);
     let [accounts, setAccounts] = useState([]);
@@ -126,4 +126,4 @@ function AllUsers(props) {
     )
 }
 
-export default AllUsers;
+export default Users;

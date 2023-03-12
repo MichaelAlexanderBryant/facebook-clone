@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import AuthContext from "../context/AuthContext";
-import defaultProfilePicture from "../assets/default-profile-picture.png";
 import Sidebar from "../components/Sidebar";
 import FeedFriends from "../components/FeedFriends";
 import NewPost from "../components/NewPost";
@@ -12,14 +11,9 @@ function Feed() {
 
   const navigate = useNavigate();
 
-  let [posts, setPosts] = useState([]);
-  let [accounts, setAccounts] = useState([]);
-  let {authTokens, user, logoutUser} = useContext(AuthContext);
-
-  useEffect(() => {
-      getPosts();
-      getAccounts();
-  },[])
+  let [posts, setPosts] = useState(null);
+  let [accounts, setAccounts] = useState(null);
+  let {authTokens, user, userInfo, logoutUser} = useContext(AuthContext);
 
   let getPosts = async () => {
       let response = await fetch('http://127.0.0.1:8000/api/posts/', {
@@ -47,7 +41,6 @@ function Feed() {
         }
     })
     let data = await response.json()
-
     if (response.status === 200) {
         setAccounts(data);
     } else if (response.statusText === 'Unauthorized') {
@@ -79,7 +72,12 @@ function Feed() {
     };  
   }
 
+  useEffect(() => {
+    getPosts();
+    getAccounts();
+  },[])
 
+  if (accounts && posts) {
     return (
       <div className="feed-container">
         <NavBar/>
@@ -90,7 +88,7 @@ function Feed() {
           <Posts accounts={accounts} posts={posts}/>
         </div>
       </div>
-    );
+    );}
   }
   
   export default Feed;

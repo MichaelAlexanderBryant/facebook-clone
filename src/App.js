@@ -7,6 +7,7 @@ import PrivateRouteLogIn from './utils/PrivateRouteLogIn';
 import PrivateRouteFeed from './utils/PrivateRouteFeed';
 import Profile from './pages/Profile';
 import Users from './pages/Users';
+import AllUsers from './pages/AllUsers';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
             </Route>
             <Route path="/profile/:id" element={<Profile/>}/>
             <Route path="/friends/:id" element={<Users display="friends" />}/>
-            <Route path="/allusers" element={<Users display="allusers" />}/>
+            <Route path="/allusers" element={<AllUsers/>}/>
         </Routes>
       </AuthProvider>
     </div>

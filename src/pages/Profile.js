@@ -3,7 +3,7 @@ import MiniSidebar from "../components/MiniSidebar";
 import NavBar from "../components/NavBar";
 import AuthContext from "../context/AuthContext";
 import ProfileHeader from "../components/ProfileHeader";
-import Friends from "../components/Friends";
+import ProfileFriends from "../components/ProfileFriends";
 import Posts from "../components/Posts";
 
 function Profile() {
@@ -13,7 +13,7 @@ function Profile() {
 
     let [posts, setPosts] = useState([]);
     let [profile, setProfile] = useState([]);
-    let {user, authTokens, logoutUser} = useContext(AuthContext);
+    let {authTokens, logoutUser} = useContext(AuthContext);
 
     let getProfile = async () => {
         let response = await fetch(`http://127.0.0.1:8000/api/accounts/${userId}`, {
@@ -66,8 +66,10 @@ function Profile() {
                 <div className="profile-content">
                     <div className="center-profile-content">
                         <div className="flex-profile-content">
-                            <Friends profile={profile} />
-                            <Posts accounts={[profile]} posts={posts} />
+                            <ProfileFriends profile={profile} />
+                            {posts.length > 0 ?
+                                <Posts account={profile} posts={posts} />
+                                :<div className="post">No posts to display</div>}
                         </div>
                     </div>
                 </div>
