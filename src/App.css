@@ -299,8 +299,25 @@ a {
     height: auto;
 }
 
+.post-likes {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    gap: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.liked-icon {
+    height:18px;
+    width:18px;
+}
+
+.like-count {
+    filter: opacity(65%);
+}
+
 .post-buttons {
-    margin-top: 1em;
+
     width: 100%;
     display: flex;
     justify-content: center;
@@ -314,6 +331,7 @@ a {
     display: flex;
     align-items: center;
     gap: 0.5em;
+    filter: opacity(75%);
 }
 
 .profile-header {
