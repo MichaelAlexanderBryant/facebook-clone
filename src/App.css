@@ -299,6 +299,23 @@ a {
     height: auto;
 }
 
+.post-buttons {
+    margin-top: 1em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    border-top: 1px solid #d0d2d6;
+    padding-top: 1em;
+}
+
+.post-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
 .profile-header {
     width: 100vw;
     padding: 4.5em 0 1em 4.5em;

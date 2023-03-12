@@ -1,4 +1,6 @@
 import defaultProfilePicture from "../assets/default-profile-picture.png";
+import likeIcon from "../assets/like-icon.png";
+import commentIcon from "../assets/comment-icon.png";
 
 function Post(props) {
     
@@ -14,6 +16,16 @@ function Post(props) {
             </div>
             <p className="post-text">{props.post.body}</p>
             <img className="post-image" src={props.post.image} alt=""/>
+            <div className="post-buttons">
+                <div className="post-btn">
+                    <img src={likeIcon} alt="Like post"/>
+                    <span>Like</span>
+                </div>
+                <div className="post-btn">
+                    <img src={commentIcon} alt="Like post"/>
+                    <span>Comments</span>
+                </div>
+            </div>
       </div>
     )
 }
