@@ -6,7 +6,10 @@ import friendsIcon from "../assets/friends-icon.png";
 import allUsersIcon from "../assets/all-users-icon.png";
 
 function Sidebar() {
+
     let {user, userInfo} = useContext(AuthContext)
+
+    
     return (
         <div className="menu-container">
           <ul className="top-menu-list">

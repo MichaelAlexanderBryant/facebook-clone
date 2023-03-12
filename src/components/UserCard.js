@@ -6,6 +6,7 @@ function UserCard(props) {
 
     let {user, userInfo} = useContext(AuthContext)
 
+
     return (
         <div className="user-card">
             <div className="allusers-img-name">
@@ -20,8 +21,14 @@ function UserCard(props) {
                     <p className="allusers-name">{props.person.first_name + " " + props.person.last_name}</p>
                 </a>
             </div>
-            
-            {props.display==="allusers" ? (parseInt(props.person.id) !== parseInt(user.user_id) ?
+            {(props.friendsList) ? (
+                    parseInt(props.person.id) !== parseInt(user.user_id) ?
+                        (userInfo.friends && userInfo.friends.includes(props.person.id) ?
+                        <button type="button" className="allusers-btn">Unfriend</button>
+                        : <button type="button" className="allusers-btn">Add Friend</button>)
+                        : null) 
+                    :(
+            props.display==="allusers" ? (parseInt(props.person.id) !== parseInt(user.user_id) ?
                 (userInfo.friends && userInfo.friends.includes(props.person.id) ?
                 <button type="button" className="allusers-btn">Unfriend</button>
                 : <button type="button" className="allusers-btn">Add Friend</button>)
@@ -30,7 +37,8 @@ function UserCard(props) {
                     (userInfo.friends && userInfo.friends.includes(props.person.id) ?
                     null
                     : <button type="button" className="allusers-btn">Accept</button>)
-                    : null)}
+                    : null))
+            }
         </div>
     )
 }

@@ -3,7 +3,10 @@ import AuthContext from "../context/AuthContext";
 import defaultProfilePicture from "../assets/default-profile-picture.png";
 
 function NewPost(props) {
+
     let {userInfo} = useContext(AuthContext);
+
+    
     return (
         <div className="make-a-post-container">
             <form onSubmit={props.submitPost}>

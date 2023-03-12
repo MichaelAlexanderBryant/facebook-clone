@@ -2,6 +2,7 @@ import FeedPosts from "./FeedPosts";
 import ProfilePosts from "./ProfilePosts";
 
 function Posts(props) {
+    
     return (
         <div>
             {props.accounts? 

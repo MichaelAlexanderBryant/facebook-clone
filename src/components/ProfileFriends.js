@@ -2,7 +2,10 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 function ProfileFriends(props) {
+
     let {user} = useContext(AuthContext);
+
+    
     return (
         <div className="friends">
             <div className="friends-header"><span>Friends</span>

@@ -1,6 +1,7 @@
 import Post from "./Post";
 
 function ProfilePosts(props) {
+    
     return (
         <div className="feed-posts">
             {props.posts.length > 0 ? 

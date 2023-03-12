@@ -4,7 +4,10 @@ import facebookLogo from '../assets/facebook-logo.svg';
 import defaultProfilePicture from '../assets/default-profile-picture.png';
 
 function NavBar() {
+
     let {user, userInfo, logoutUser} = useContext(AuthContext)
+
+    
     return (
         <div className="navbar-container">
             <a href="/feed"><img src={facebookLogo} alt="Facebook Logo" className='navbar-logo'/></a>

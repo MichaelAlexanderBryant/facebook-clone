@@ -1,6 +1,7 @@
 import UserCard from "./UserCard";
 
 function FriendRequests(props) {
+
     return (
         <div>
             {(props.friendRequests && props.friendRequests.length > 0) ?

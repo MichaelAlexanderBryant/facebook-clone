@@ -1,12 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import MiniSidebar from "../components/MiniSidebar";
-import NavBar from "../components/NavBar";
+import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
-import defaultProfilePicture from "../assets/default-profile-picture.png";
 
 function ProfileHeader(props) {
 
     let {user, userInfo} = useContext(AuthContext);
+
 
     return (
         <div className="profile-header">

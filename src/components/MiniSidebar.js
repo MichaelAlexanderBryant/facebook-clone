@@ -9,6 +9,7 @@ function MiniSidebar() {
 
     let {user, userInfo} = useContext(AuthContext)
 
+    
     return (
         <div className="mini-menu">
             <div className="mini-menu-background">

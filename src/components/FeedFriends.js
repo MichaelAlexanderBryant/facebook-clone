@@ -3,7 +3,10 @@ import AuthContext from "../context/AuthContext";
 import defaultProfilePicture from "../assets/default-profile-picture.png";
 
 function FeedFriends(props){
+
     let {user, userInfo} = useContext(AuthContext)
+
+    
     return(
         <div className="user-list-container">
             <h1 className="contacts-header">Friends</h1>

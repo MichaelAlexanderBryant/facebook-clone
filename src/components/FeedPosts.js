@@ -3,7 +3,10 @@ import AuthContext from "../context/AuthContext";
 import Post from "./Post";
 
 function FeedPosts(props) {
+
     let {userInfo} = useContext(AuthContext)
+
+    
     return (
         <div className="feed-posts">
             {props.posts.length > 0 ? 
