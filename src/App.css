@@ -299,22 +299,39 @@ a {
     height: auto;
 }
 
-.center-profile-header {
-   display:flex;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
-}
-
 .profile-header {
     width: 100vw;
     padding: 4.5em 0 1em 4.5em;
     background-color: white;
     border-bottom: 1px solid #f0f2f5;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-.left-side-profile-header {
+.center-profile-header {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 75em
+ }
 
+.left-side-profile-header {
+    display: flex;
+    gap: 1em;
+}
+
+.right-side-profile-header {
+    padding-right: 1em;
+    height: 12em;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.profile-name {
+    padding-top: 1em;
 }
 
 .profile-picture {

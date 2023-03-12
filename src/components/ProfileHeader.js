@@ -13,13 +13,15 @@ function ProfileHeader(props) {
                         <img src={props.profile.profile_picture} alt="" className="profile-picture"/>
                         <h1 className="profile-name">{props.profile.first_name + " " + props.profile.last_name}</h1>
                     </div>
-                    {String(user.user_id) === props.userId ? 
-                        <div><button type="button">Edit Profile</button></div>
-                        : <div>
-                            {userInfo.friends && userInfo.friends.includes(parseInt(props.userId)) ? 
-                                <button type="button">Unfriend</button>
-                                :<button type="button">Add Friend</button>}
-                        </div>}
+                    <div className="right-side-profile-header">
+                        {String(user.user_id) === props.userId ? 
+                            <div><button type="button">Edit Profile</button></div>
+                            : <div>
+                                {userInfo.friends && userInfo.friends.includes(parseInt(props.userId)) ? 
+                                    <button type="button">Unfriend</button>
+                                    :<button type="button">Add Friend</button>}
+                            </div>}
+                    </div>
                 </div>
             </div>
         )
