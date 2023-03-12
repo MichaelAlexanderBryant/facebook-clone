@@ -14,7 +14,7 @@ function Feed() {
   const navigate = useNavigate();
   let [posts, setPosts] = useState(null);
   let [accounts, setAccounts] = useState(null);
-  let {authTokens, user, logoutUser} = useContext(AuthContext);
+  let {authTokens, user, userInfo, logoutUser} = useContext(AuthContext);
 
 
   useEffect(() => {
@@ -49,7 +49,8 @@ function Feed() {
   }
 
 
-  if (accounts && posts) {
+  if (userInfo && accounts && posts) {
+    
     return (
       <div className="feed-container">
         <NavBar/>

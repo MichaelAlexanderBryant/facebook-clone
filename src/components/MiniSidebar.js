@@ -9,41 +9,42 @@ function MiniSidebar() {
 
     let {user, userInfo} = useContext(AuthContext)
 
-    
-    return (
-        <div className="mini-menu">
-            <div className="mini-menu-background">
-                <div className="mini-menu-container">
-                    <ul className="top-menu-list">
-                    <li>
-                        <a href="/feed" className="menu-item">
-                            <img src={homeIcon} alt="Home" className="icon"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href={"/profile/" + user.user_id} className="menu-item">
-                            {userInfo.profile_picture ? 
-                            <img className="icon" src={userInfo.profile_picture} alt={userInfo.first_name + " " + userInfo.last_name}/>
-                            : <img className="icon" src={defaultProfilePicture} alt=""/>}
-                        </a>
+    if (user && userInfo) {
+        return (
+            <div className="mini-menu">
+                <div className="mini-menu-background">
+                    <div className="mini-menu-container">
+                        <ul className="top-menu-list">
+                        <li>
+                            <a href="/feed" className="menu-item">
+                                <img src={homeIcon} alt="Home" className="icon"/>
+                            </a>
                         </li>
-                    </ul>
-                    <ul className="bottom-menu-list">
-                    <li>
-                        <a href={"/friends/" + user.user_id} className="menu-item">
-                            <img src={friendsIcon} alt="Friends" className="icon"/>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/allusers" className="menu-item">
-                            <img src={allUsersIcon} alt="All users" className="icon"/>
-                        </a>
-                    </li>
-                    </ul>
+                        <li>
+                            <a href={"/profile/" + user.user_id} className="menu-item">
+                                {userInfo.profile_picture ? 
+                                <img className="icon" src={userInfo.profile_picture} alt={userInfo.first_name + " " + userInfo.last_name}/>
+                                : <img className="icon" src={defaultProfilePicture} alt=""/>}
+                            </a>
+                            </li>
+                        </ul>
+                        <ul className="bottom-menu-list">
+                        <li>
+                            <a href={"/friends/" + user.user_id} className="menu-item">
+                                <img src={friendsIcon} alt="Friends" className="icon"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/allusers" className="menu-item">
+                                <img src={allUsersIcon} alt="All users" className="icon"/>
+                            </a>
+                        </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+                            }
 }
 
 export default MiniSidebar;

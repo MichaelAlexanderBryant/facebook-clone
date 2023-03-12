@@ -9,8 +9,8 @@ import FriendsList from "../components/FriendsList";
 
 function Friends() {
 
-    let [friendRequests, setFriendRequests] = useState([]);
-    let [accounts, setAccounts] = useState([]);
+    let [friendRequests, setFriendRequests] = useState(null);
+    let [accounts, setAccounts] = useState(null);
     let {authTokens, user, logoutUser} = useContext(AuthContext);
 
 
@@ -19,17 +19,18 @@ function Friends() {
         getAccounts(authTokens, setAccounts, logoutUser);
     },[])
 
-    
-    return (
-        <div>
-            <NavBar/>
-            <MiniSidebar/>
-            <div className="allusers-container">
-                <FriendRequests friendRequests={friendRequests} accounts={accounts} />
-                <FriendsList accounts={accounts}/>
+    if (friendRequests && accounts) {
+        return (
+            <div>
+                <NavBar/>
+                <MiniSidebar/>
+                <div className="allusers-container">
+                    <FriendRequests friendRequests={friendRequests} accounts={accounts} />
+                    <FriendsList accounts={accounts}/>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default Friends;

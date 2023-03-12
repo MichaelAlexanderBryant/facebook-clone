@@ -9,7 +9,7 @@ import { getAccounts } from "../utils/getAccounts";
 
 function AllUsers() {
 
-    let [accounts, setAccounts] = useState([]);
+    let [accounts, setAccounts] = useState(null);
     let {authTokens, logoutUser} = useContext(AuthContext);
 
 
@@ -17,23 +17,24 @@ function AllUsers() {
         getAccounts(authTokens, setAccounts, logoutUser);
     },[])
 
-    
-    return (
-        <div>
-            <NavBar/>
-            <MiniSidebar/>
-            <div className="allusers-container">
-                    <div>
-                        <h1>All Users</h1>
-                        <div className="card-container">
-                            {accounts ? accounts.map((person, idx) => {
-                                return <UserCard display="allusers" person={person} idx={idx} />})
-                                :null}
+    if (accounts) {
+        return (
+            <div>
+                <NavBar/>
+                <MiniSidebar/>
+                <div className="allusers-container">
+                        <div>
+                            <h1>All Users</h1>
+                            <div className="card-container">
+                                {accounts ? accounts.map((person, idx) => {
+                                    return <UserCard display="allusers" person={person} key={idx} />})
+                                    :null}
+                            </div>
                         </div>
-                    </div>
+                </div>
             </div>
-        </div>
-    )
+        )
+                            }
 }
 
 export default AllUsers;
