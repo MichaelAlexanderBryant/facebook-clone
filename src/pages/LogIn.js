@@ -3,7 +3,10 @@ import React, {useContext} from 'react';
 import AuthContext from '../context/AuthContext';
 
 function LogIn() {
+  
     let {loginUser} = useContext(AuthContext);
+
+
     return (
       <div className="login-container">
         <div className="left-panel">

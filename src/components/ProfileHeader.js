@@ -20,7 +20,7 @@ function ProfileHeader(props) {
                     : <div>
                         {userInfo.friends && userInfo.friends.includes(parseInt(props.userId)) ? 
                             <button type="button">Unfriend</button>
-                            :<button type="button">Add Friend</button>}<button type="button">Message User</button>
+                            :<button type="button">Add Friend</button>}
                       </div>}
             </div>
         </div>

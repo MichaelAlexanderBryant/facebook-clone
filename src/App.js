@@ -8,6 +8,7 @@ import PrivateRouteFeed from './utils/PrivateRouteFeed';
 import Profile from './pages/Profile';
 import Users from './pages/Users';
 import AllUsers from './pages/AllUsers';
+import Friends from './pages/Friends';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
               <Route path="/feed" element={<Feed/>}/>
             </Route>
             <Route path="/profile/:id" element={<Profile/>}/>
-            <Route path="/friends/:id" element={<Users display="friends" />}/>
+            <Route path="/friends/:id" element={<Friends />}/>
             <Route path="/allusers" element={<AllUsers/>}/>
         </Routes>
       </AuthProvider>

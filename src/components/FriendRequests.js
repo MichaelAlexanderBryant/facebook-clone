@@ -14,7 +14,7 @@ function FriendRequests(props) {
                         {props.accounts ? props.accounts.map((person, idx) => {
                                 if (props.friendRequests && props.friendRequests.includes(person.id)) {
                                     return (
-                                        <UserCard display="friends" person={person} idx={idx} />
+                                        <UserCard display="friends" person={person} key={idx} />
                                     )}
                         }):null}
                     </div>

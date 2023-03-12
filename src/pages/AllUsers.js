@@ -3,6 +3,7 @@ import MiniSidebar from "../components/MiniSidebar"
 import NavBar from "../components/NavBar"
 import UserCard from "../components/UserCard";
 import AuthContext from "../context/AuthContext";
+import { getAccounts } from "../utils/getAccounts";
 
 
 
@@ -11,28 +12,12 @@ function AllUsers() {
     let [accounts, setAccounts] = useState([]);
     let {authTokens, logoutUser} = useContext(AuthContext);
 
-    let getAccounts = async () => {
-        let response = await fetch('http://127.0.0.1:8000/api/accounts/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + String(authTokens.access) 
-            }
-        })
-        let data = await response.json()
-    
-        if (response.status === 200) {
-            setAccounts(data);
-        } else if (response.statusText === 'Unauthorized') {
-            logoutUser();
-        };
-    };
 
     useEffect(() => {
-        getAccounts();
+        getAccounts(authTokens, setAccounts, logoutUser);
     },[])
 
-
+    
     return (
         <div>
             <NavBar/>

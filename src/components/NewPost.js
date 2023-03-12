@@ -1,10 +1,6 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import NavBar from "../components/NavBar";
+import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import defaultProfilePicture from "../assets/default-profile-picture.png";
-import Sidebar from "../components/Sidebar";
-import FeedFriends from "../components/FeedFriends";
 
 function NewPost(props) {
     let {userInfo} = useContext(AuthContext);

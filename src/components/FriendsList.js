@@ -2,7 +2,7 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import defaultProfilePicture from "../assets/default-profile-picture.png";
 
-function Friends(props) {
+function FriendsList(props) {
     let {user, userInfo} = useContext(AuthContext);
     return (
         <div>
@@ -43,4 +43,4 @@ function Friends(props) {
     )
 }
 
-export default Friends;
+export default FriendsList;

@@ -5,6 +5,8 @@ import AuthContext from "../context/AuthContext";
 import ProfileHeader from "../components/ProfileHeader";
 import ProfileFriends from "../components/ProfileFriends";
 import Posts from "../components/Posts";
+import { getProfile } from "../utils/getProfile";
+import { getPosts } from "../utils/getPosts";
 
 function Profile() {
 
@@ -15,46 +17,9 @@ function Profile() {
     let [profile, setProfile] = useState([]);
     let {authTokens, logoutUser} = useContext(AuthContext);
 
-    let getProfile = async () => {
-        let response = await fetch(`http://127.0.0.1:8000/api/accounts/${userId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + String(authTokens.access) 
-            },
-        });
-        let data = await response.json()
-
-        if (response.status === 200) {
-            setProfile(data);
-        } else if (response.statusText === 'Unauthorized') {
-            logoutUser();
-        };
-    };
-
-    let getPosts = async () => {
-        let response = await fetch('http://127.0.0.1:8000/api/posts/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + String(authTokens.access) 
-            }
-        })
-        let data = await response.json()
-  
-        if (response.status === 200) {
-            data = data.filter(post => {
-                return (parseInt(post.author) === parseInt(userId))
-            })
-            setPosts(data);
-        } else if (response.statusText === 'Unauthorized') {
-            logoutUser();
-        };
-    };
-
     useEffect(() => {
-        getProfile();
-        getPosts();
+        getProfile(userId, authTokens, setProfile, logoutUser);
+        getPosts(authTokens, setPosts, logoutUser, userId);
     }, []) 
 
     return (

@@ -7,7 +7,7 @@ function UserCard(props) {
     let {user, userInfo} = useContext(AuthContext)
 
     return (
-        <div className="user-card" key={props.idx}>
+        <div className="user-card">
             <div className="allusers-img-name">
                 <div className="allusers-img-container">
                     <a href={"/profile/" + props.person.id}>

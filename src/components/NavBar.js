@@ -16,7 +16,6 @@ function NavBar() {
                 </a>
                 <div onClick={logoutUser}><p>Log Out</p></div>
             </div>
-            
         </div>
     )
 }
