@@ -21,7 +21,7 @@ function App() {
               <Route path="/feed" element={<Feed/>}/>
             </Route>
             <Route path="/profile/:id" element={<Profile/>}/>
-            <Route path="/friends" element={<Users display="friends" />}/>
+            <Route path="/friends/:id" element={<Users display="friends" />}/>
             <Route path="/allusers" element={<Users display="allusers" />}/>
         </Routes>
       </AuthProvider>

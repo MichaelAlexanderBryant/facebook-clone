@@ -227,7 +227,6 @@ a {
 }
 
 .feed-posts {
-    margin: 15px 0;
 }
 
 .make-a-post-container, .post {
@@ -242,6 +241,10 @@ a {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     padding: 1em;
 
+}
+
+.make-a-post-container {
+    margin-bottom: 15px;
 }
 
 .make-a-post-container > form {
@@ -328,6 +331,7 @@ a {
 
 .flex-profile-content {
     display: flex;
+    gap: 1em;
 }
 
 .friends {
@@ -336,6 +340,7 @@ a {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background-color: white;
     width: 29em;
+    height: 30em;
 }
 .friends-header {
     display: flex;
@@ -350,11 +355,8 @@ a {
     justify-content: center;
 }
 
-.posts {
-    padding: 1em;
+.profile-posts {
     border-radius: 5px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    background-color: white;
     width: 40.5em;
     margin-right: 5em;
     margin-left: 1em;

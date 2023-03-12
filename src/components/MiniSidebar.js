@@ -29,7 +29,7 @@ function MiniSidebar() {
                     </ul>
                     <ul className="bottom-menu-list">
                     <li>
-                        <a href="/friends" className="menu-item">
+                        <a href={"/friends/" + user.user_id} className="menu-item">
                             <img src={friendsIcon} alt="Friends" className="icon"/>
                         </a>
                     </li>

@@ -2,14 +2,18 @@ import { useContext, useEffect, useState } from "react";
 import MiniSidebar from "../components/MiniSidebar";
 import NavBar from "../components/NavBar";
 import AuthContext from "../context/AuthContext";
+import ProfileHeader from "../components/ProfileHeader";
+import Friends from "../components/Friends";
+import Posts from "../components/Posts";
 
 function Profile() {
 
     let currentUrl = window.location.href
     let userId = currentUrl.slice(currentUrl.indexOf("profile/")+8)
 
+    let [posts, setPosts] = useState([]);
     let [profile, setProfile] = useState([]);
-    let {user, userInfo, authTokens, logoutUser} = useContext(AuthContext);
+    let {user, authTokens, logoutUser} = useContext(AuthContext);
 
     let getProfile = async () => {
         let response = await fetch(`http://127.0.0.1:8000/api/accounts/${userId}`, {
@@ -26,38 +30,44 @@ function Profile() {
         } else if (response.statusText === 'Unauthorized') {
             logoutUser();
         };
-    }
+    };
+
+    let getPosts = async () => {
+        let response = await fetch('http://127.0.0.1:8000/api/posts/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access) 
+            }
+        })
+        let data = await response.json()
+  
+        if (response.status === 200) {
+            data = data.filter(post => {
+                return (parseInt(post.author) === parseInt(userId))
+            })
+            setPosts(data);
+        } else if (response.statusText === 'Unauthorized') {
+            logoutUser();
+        };
+    };
 
     useEffect(() => {
         getProfile();
+        getPosts();
     }, []) 
 
     return (
         <div>
             <NavBar/>
-            <MiniSidebar/>
+            <MiniSidebar currentUser={profile.id}/>
             <div className="profile-container">
-                <div className="profile-header">
-                    <div className="center-profile-header">
-                        <div className="left-side-profile-header">
-                            <img src={profile.profile_picture} alt="" className="profile-picture"/>
-                            <h1 className="profile-name">{profile.first_name + " " + profile.last_name}</h1>
-                        </div>
-                        {String(user.user_id) === userId ? 
-                            <div><button type="button">Edit Profile</button></div>
-                            : <div>{userInfo.friends && userInfo.friends.includes(parseInt(userId))?<button type="button">Unfriend</button>:<button type="button">Add Friend</button>}<button type="button">Message User</button></div>}
-                    </div>
-                </div>
+                <ProfileHeader profile={profile} userId={userId} />
                 <div className="profile-content">
                     <div className="center-profile-content">
                         <div className="flex-profile-content">
-                            <div className="friends">
-                                <div className="friends-header"><span>Friends</span><span>See all friends</span></div>
-                                <div>{profile.friends ? (profile.friends.length === 1 ? profile.friends.length + " friend":
-                                        profile.friends.length + " friends"):null}</div>
-                            </div>
-                        
-                            <div className="posts"></div>
+                            <Friends profile={profile} />
+                            <Posts accounts={[profile]} posts={posts} />
                         </div>
                     </div>
                 </div>
