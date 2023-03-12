@@ -6,7 +6,6 @@ import { AuthProvider } from './context/AuthContext';
 import PrivateRouteLogIn from './utils/PrivateRouteLogIn';
 import PrivateRouteFeed from './utils/PrivateRouteFeed';
 import Profile from './pages/Profile';
-import Users from './pages/Users';
 import AllUsers from './pages/AllUsers';
 import Friends from './pages/Friends';
 
