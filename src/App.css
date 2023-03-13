@@ -396,6 +396,7 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: end;
+    padding-right: .5em;
 }
 
 .profile-name {
@@ -419,20 +420,48 @@ a {
     gap: 1em;
 }
 
-.friends {
+
+
+.profile-friends {
     padding: 1em;
     border-radius: 5px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     background-color: white;
     width: 29em;
-    height: 30em;
+    height: fit-content;
 }
 .friends-header {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 1em;
+    padding-bottom: .5em;
     border-radius: 5px;
     
+}
+
+.profile-friends-count {
+    padding-bottom: 1em;
+    color: #86878b;
+}
+
+.profile-friends-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    column-gap: 1em;
+    row-gap: 1em;
+    height: 100%;
+}
+
+.profile-friend-img {
+    width: 8em;
+    border-radius: 5px;
+}
+
+.profile-friend-name {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: .8em;
 }
 
 .center-profile-content {
