@@ -1,23 +1,29 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
+import { getProfile } from "../utils/getProfile";
 import UserCard from "./UserCard";
 
 function FriendsList(props) {
 
-    let {userInfo} = useContext(AuthContext);
+    let {authTokens, logoutUser} = useContext(AuthContext);
+    let [profile, setProfile] = useState(null);
 
-    if (userInfo) {
+    useEffect(() => {
+        getProfile(props.userId, authTokens, setProfile, logoutUser);
+    }, [])
+
+    if (profile) {
         return (
             <div>
                 <h1>Friends</h1>
                 <div className="card-container">
                     {   
-                        (userInfo.friends && userInfo.friends.length === 0) ?
+                        (profile.friends && profile.friends.length === 0) ?
                                 <p>No friends to display</p> : null
                     }
                         
                     {props.accounts ? props.accounts.map((person, idx) => {
-                            if (userInfo.friends && userInfo.friends.includes(person.id)) {
+                        if (profile.friends && profile.friends.includes(person.id)) {
                             return (
                                 <UserCard friendsList={true} person={person} key={idx} />
                         )} else return null;

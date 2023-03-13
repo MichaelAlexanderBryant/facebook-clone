@@ -25,12 +25,14 @@ function ProfileFriends(props) {
                     {accounts.map((account,idx) => {
                         if (props.profile.friends.slice(0,9).includes(account.id)) {
                             return (
-                                <div>
-                                {(account.profile_picture?
-                                <img src={account.profile_picture}className="profile-friend-img" alt="" key={idx}/>
-                                : <img src={defaultProfilePicture}className="profile-friend-img" alt="" key={idx}/>
-                                )}
-                                <p className="profile-friend-name">{account.first_name + " " + account.last_name}</p>
+                                <div key={idx}>
+                                    <a href={"/profile/" + account.id}>
+                                        {(account.profile_picture?
+                                        <img src={account.profile_picture}className="profile-friend-img" alt="" key={idx}/>
+                                        : <img src={defaultProfilePicture}className="profile-friend-img" alt="" key={idx}/>
+                                        )}
+                                        <p className="profile-friend-name">{account.first_name + " " + account.last_name}</p>
+                                    </a>
                                 </div>
                             )
                         } else {return null;}

@@ -13,6 +13,9 @@ function Friends() {
     let [accounts, setAccounts] = useState(null);
     let {authTokens, user, logoutUser} = useContext(AuthContext);
 
+    let currentUrl = window.location.href
+    let userId = currentUrl.slice(currentUrl.indexOf("friends/")+8)
+
 
     useEffect(() => {
         getFriendRequests(authTokens, user, setFriendRequests, logoutUser);
@@ -25,8 +28,10 @@ function Friends() {
                 <NavBar/>
                 <MiniSidebar/>
                 <div className="allusers-container">
+                    {parseInt(userId) === user.user_id ?
                     <FriendRequests friendRequests={friendRequests} accounts={accounts} />
-                    <FriendsList accounts={accounts}/>
+                    : null}
+                    <FriendsList accounts={accounts} userId={userId}/>
                 </div>
             </div>
         )
