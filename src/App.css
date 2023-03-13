@@ -297,6 +297,7 @@ a {
 .post-image {
     width: 100%;
     height: auto;
+    padding-bottom: 1em;
 }
 
 .post-likes {

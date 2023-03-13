@@ -19,4 +19,4 @@ let getPosts = async (authTokens, setPosts, logoutUser, userId=null) => {
     };
 };
 
-export {getPosts}
+export {getPosts};
