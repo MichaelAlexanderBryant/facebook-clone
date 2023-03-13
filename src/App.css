@@ -438,6 +438,10 @@ a {
     
 }
 
+.all-friends-link {
+    color: #216fdb;
+}
+
 .profile-friends-count {
     padding-bottom: 1em;
     color: #86878b;
@@ -446,14 +450,20 @@ a {
 .profile-friends-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
     column-gap: 1em;
     row-gap: 1em;
     height: 100%;
 }
 
+.profile-friend-img-container {
+    height: 9em;
+    width: 9em;
+}
+
 .profile-friend-img {
-    width: 8em;
+    height: 100%;
+    width: 100%;
+    object-fit:cover;
     border-radius: 5px;
 }
 
