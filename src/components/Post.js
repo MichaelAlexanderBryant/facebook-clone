@@ -5,12 +5,16 @@ import commentIcon from "../assets/comment-icon.png";
 import { putLike } from "../utils/putLike";
 import { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../context/AuthContext";
-import { calculatePostAge } from "../utils/calculatePostAge";
+import { calculateAge } from "../utils/calculateAge";
+import { getComments } from "../utils/getComments";
+import { getAccounts } from "../utils/getAccounts";
 
 function Post(props) {
 
-    let {authTokens, user} = useContext(AuthContext);
+    let {authTokens, user, logoutUser} = useContext(AuthContext);
     let [likes, setLikes] = useState(props.post.likes);
+    let [comments, setComments] = useState(null);
+    let [accounts, setAccounts] = useState(null);
     const likedByUser = useRef(false);
     const [likeIsDisabled, setLikeIsDisabled] = useState(false);
     const [postAge, setPostAge] = useState(null);
@@ -19,7 +23,9 @@ function Post(props) {
         if (props.post.liked_by.includes(parseInt(user.user_id))) {
             likedByUser.current = true;
         }
-        setPostAge(calculatePostAge(props.post));
+        setPostAge(calculateAge(props.post));
+        getComments(authTokens, setComments, logoutUser, props.post.id);
+        getAccounts(authTokens, setAccounts, logoutUser);
     },[])
 
 
@@ -35,7 +41,6 @@ function Post(props) {
 
         await putLike(authTokens, user, props.post.id)
         setLikeIsDisabled(false);
-        
     }
 
     let handleClick = async () => {
@@ -43,7 +48,17 @@ function Post(props) {
         await submitLike();
     }
 
-    if (postAge) {
+    let [hideComments, setHideComments] = useState(true);
+
+    let showComments = () => {
+        if (!hideComments) {
+            setHideComments(true);
+        } else {
+            setHideComments(false);
+        }
+    }
+
+    if (postAge && comments && accounts) {
         return (
             <div className="post">
                 <div className="post-header">
@@ -64,8 +79,13 @@ function Post(props) {
                         <img src={likedIcon} alt="Liked" className="liked-icon"/>
                         <span className="like-count">{likes}</span>
                     </div>
-                    <div className="post-comments">
-                        <span className="comment-count">0 Comments</span>
+                    <div className="post-comments-count">
+                        {comments.length > 0 ? 
+                        <span className="comment-count" onClick={showComments}>
+                            {comments.length} {comments.length === 1 ? "comment": "comments"}
+                        </span>
+                        : null
+                        }
                     </div>
                 </div>
                 <div className="post-buttons">
@@ -77,6 +97,26 @@ function Post(props) {
                         <img src={commentIcon} alt="Like post"/>
                         <span>Comment</span>
                     </div>
+                </div>
+                <div className={hideComments? "post-comments-hide":"post-comments"}>
+                    {comments.map((comment, index) => {
+                        let postAuthor = accounts.filter(account => {return account.id === comment.author})[0]
+                        return (
+                            <div className="comment" key={index}>
+                                <img className="post-comment-author-img"  src={postAuthor.profile_picture} alt=""/>
+                                <div className="comment-text-link">
+                                    <div className="comment-text-area">
+                                        <span className="comment-author">{postAuthor.first_name + " " + postAuthor.last_name}</span>
+                                        <span className="comment-comment">{comment.comment}</span>
+                                    </div>
+                                    <div className="comment-like-age">
+                                        <span className="like-comment">Like</span>
+                                        <span className="comment-age">{calculateAge(comment)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
         </div>
         )

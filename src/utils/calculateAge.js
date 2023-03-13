@@ -1,7 +1,7 @@
-function calculatePostAge(post) {
-    let postDateTime = new Date(post.created_at)
+function calculateAge(obj) {
+    let objDateTime = new Date(obj.created_at)
     let currentDateTime = new Date(Date.now())
-    let timeDifference = currentDateTime.getTime() - postDateTime.getTime() // Milliseconds
+    let timeDifference = currentDateTime.getTime() - objDateTime.getTime() // Milliseconds
     const minutesConversion = (1/1000)*(1/60)
     const hoursConversion = minutesConversion*(1/60)
     const daysConversion = hoursConversion*(1/24)
@@ -22,4 +22,4 @@ function calculatePostAge(post) {
         }
 }
 
-export {calculatePostAge};
+export {calculateAge};
