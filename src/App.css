@@ -316,10 +316,23 @@ a {
     padding-bottom: 1em;
 }
 
-.post-likes {
+.post-likes-comments {
     width: 100%;
     display: flex;
-    justify-content: start;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.post-likes {
+    display: flex;
+    gap: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.post-comments {
+    display: flex;
+    justify-content: end;
     gap: 0.5em;
     padding-bottom: 0.5em;
 }
@@ -329,8 +342,8 @@ a {
     width:18px;
 }
 
-.like-count {
-    filter: opacity(65%);
+.like-count, .comment-count {
+    color: #a5a6a8;
 }
 
 .post-buttons {
@@ -344,11 +357,15 @@ a {
     padding-top: 1em;
 }
 
-.post-btn {
+.post-btn, .post-btn-disabled {
     display: flex;
     align-items: center;
     gap: 0.5em;
     filter: opacity(75%);
+}
+
+.post-btn-disabled {
+    pointer-events: none;
 }
 
 .profile-header {

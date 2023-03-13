@@ -11,29 +11,36 @@ function Post(props) {
 
     let {authTokens, user} = useContext(AuthContext);
     let [likes, setLikes] = useState(props.post.likes);
-    const likeStatus = useRef(false);
+    const likedByUser = useRef(false);
+    const [likeIsDisabled, setLikeIsDisabled] = useState(false);
     const [postAge, setPostAge] = useState(null);
 
     useEffect(() => {
         if (props.post.liked_by.includes(parseInt(user.user_id))) {
-            likeStatus.current = true;
+            likedByUser.current = true;
         }
-
         setPostAge(calculatePostAge(props.post));
-
     },[])
-    
-    async function submitLike() {
 
-        if (!likeStatus.current) {
+
+    async function submitLike() {
+        
+        if (!likedByUser.current) {
             setLikes(likes+1)
-            likeStatus.current = true;
-            putLike(authTokens, user, props.post)
+            likedByUser.current = true;
         } else {
             setLikes(likes-1)
-            likeStatus.current = false;
-            putLike(authTokens, user, props.post)
+            likedByUser.current = false;
         }
+
+        await putLike(authTokens, user, props.post.id)
+        setLikeIsDisabled(false);
+        
+    }
+
+    let handleClick = async () => {
+        setLikeIsDisabled(true);
+        await submitLike();
     }
 
     if (postAge) {
@@ -52,18 +59,23 @@ function Post(props) {
                 </div>
                 <p className="post-text">{props.post.body}</p>
                 <img className="post-image" src={props.post.image} alt=""/>
-                <div className="post-likes">
-                    <img src={likedIcon} alt="Liked" className="liked-icon"/>
-                    <span className="like-count">{likes}</span>
+                <div className="post-likes-comments">
+                    <div className="post-likes">
+                        <img src={likedIcon} alt="Liked" className="liked-icon"/>
+                        <span className="like-count">{likes}</span>
+                    </div>
+                    <div className="post-comments">
+                        <span className="comment-count">0 Comments</span>
+                    </div>
                 </div>
                 <div className="post-buttons">
-                    <div className="post-btn" onClick={submitLike}>
+                    <div className="post-btn" onClick={likeIsDisabled? () => {} : handleClick}>
                         <img src={likeIcon} alt="Like post"/>
                         <span>Like</span>
                     </div>
                     <div className="post-btn">
                         <img src={commentIcon} alt="Like post"/>
-                        <span>Comments</span>
+                        <span>Comment</span>
                     </div>
                 </div>
         </div>

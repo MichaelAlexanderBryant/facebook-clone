@@ -1,36 +1,46 @@
-let putLike = async (authTokens, user, post) => {
+import { getPost } from "./getPost";
 
-    const uploadData = new FormData();
-    uploadData.append('author', post.author);
-  
+let putLike = async (authTokens, user, postId) => {
     
-    if (!post.liked_by.includes(user.user_id)) {
-      uploadData.append('likes', post.likes + 1);
-      post.liked_by.push(parseInt(user.user_id))
-      
-    } else {
-      uploadData.append('likes', post.likes - 1);
-      let index = post.liked_by.indexOf(parseInt(user.user_id));
-      post.liked_by.splice(index,1)
+    let updateLikes = async (post) => {
+      const uploadData = new FormData();
+      uploadData.append('author', post.author);
+
+      if (!post.liked_by.includes(user.user_id)) {
+        uploadData.append('likes', post.likes + 1);
+        post.liked_by.push(parseInt(user.user_id))
+      } else {
+        uploadData.append('likes', post.likes - 1);
+        let index = post.liked_by.indexOf(parseInt(user.user_id));
+        post.liked_by.splice(index,1)
+      }
+
+      for (let i = 0; i<post.liked_by.length; i++) {
+        uploadData.append('liked_by', post.liked_by[i])
+      }
+
+      let response = await fetch(`http://127.0.0.1:8000/api/posts/${post.id}/`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + String(authTokens.access)
+        },
+        body: uploadData
+      });
+
+      if (response.status === 200) {
+        return
+
+      } else {
+          alert("Something went wrong");
+      };
     }
 
-    for (let i = 0; i<post.liked_by.length; i++) {
-      uploadData.append('liked_by', post.liked_by[i])
-    }
+    let fetchPost = async () => {
+      let post = await getPost(authTokens, postId);
+      await updateLikes(post);
+    } 
 
-    let response = await fetch(`http://127.0.0.1:8000/api/posts/${post.id}/`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': 'Bearer ' + String(authTokens.access)
-      },
-      body: uploadData
-    });
-
-    if (response.status === 200) {
-        console.log("Success")
-    } else {
-        alert("Something went wrong");
-    };  
+    await fetchPost();
   }
 
 export {putLike};
