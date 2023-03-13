@@ -383,7 +383,7 @@ a {
     display:flex;
     justify-content: space-between;
     align-items: center;
-    width: 75em
+    width: 74em
  }
 
 .left-side-profile-header {
@@ -392,7 +392,6 @@ a {
 }
 
 .right-side-profile-header {
-    padding-right: 1em;
     height: 12em;
     display: flex;
     flex-direction: column;
