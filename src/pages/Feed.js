@@ -27,7 +27,6 @@ function Feed() {
     postPost(e, authTokens, user, navigate);
   }
 
-
   if (userInfo && accounts && posts) {
     
     return (

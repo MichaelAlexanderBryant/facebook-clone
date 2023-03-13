@@ -5,7 +5,7 @@ import Post from "./Post";
 function FeedPosts(props) {
 
     let {userInfo} = useContext(AuthContext)
-
+    
     if (userInfo) {
         return (
             <div className="feed-posts">

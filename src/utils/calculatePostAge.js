@@ -1,17 +1,23 @@
 function calculatePostAge(post) {
     let postDateTime = new Date(post.created_at)
     let currentDateTime = new Date(Date.now())
+    let timeDifference = currentDateTime.getTime() - postDateTime.getTime() // Milliseconds
+    const minutesConversion = (1/1000)*(1/60)
+    const hoursConversion = minutesConversion*(1/60)
+    const daysConversion = hoursConversion*(1/24)
+    const monthsConversion = daysConversion*(1/30)
+    const yearsConversion = monthsConversion*(1/365)
 
-    if ((postDateTime.getFullYear()-currentDateTime.getFullYear() ) >= 1){
-        return String(currentDateTime.getFullYear() - postDateTime.getFullYear()) + "y"
-    } else if ((currentDateTime.getMonth() - postDateTime.getMonth()) >= 1) {
-        return String(currentDateTime.getMonth() - postDateTime.getMonth()) + "mo"
-    } else if ((currentDateTime.getDate() - postDateTime.getDate()) >= 1) {
-        return String(currentDateTime.getDate() - postDateTime.getDate()) + "d"
-    } else if ((currentDateTime.getHours() - postDateTime.getHours()) >= 1) {
-        return String(currentDateTime.getHours() - postDateTime.getHours()) + "h"
+    if (Math.floor(timeDifference*yearsConversion) >= 1){
+        return String(Math.floor(timeDifference*yearsConversion)) + "y"
+    } else if (Math.floor(timeDifference*monthsConversion) >= 1) {
+        return String(Math.floor(timeDifference*monthsConversion)) + "mo"
+    } else if (Math.floor(timeDifference*daysConversion) >= 1) {
+        return String(Math.floor(timeDifference*daysConversion)) + "d"
+    } else if (Math.floor(timeDifference*hoursConversion) >= 1) {
+        return String(Math.floor(timeDifference*hoursConversion)) + "h"
     } else {
-        let minutes = Math.floor((currentDateTime.getTime() - postDateTime.getTime())/60000)
+        let minutes = Math.floor(timeDifference*minutesConversion)
         return String(minutes) + "m"
         }
 }
