@@ -422,9 +422,33 @@ a {
     font-size: .8em;
 }
 
-.post-comment-author-img {
+.post-comment-author-img{
     clip-path: circle();
     width: 2.0em;
+}
+
+.user-post-comment {
+
+    display:flex;
+    align-items: center;
+    width: 100%;
+    padding-top: 1em;
+    gap: .5em;
+    padding-left: .2em;
+}
+
+.user-post-comment-img {
+    clip-path: circle();
+    width: 2em;
+}
+
+.comment-input {
+    height: 3em;
+}
+
+.comment-button-container {
+    text-align: right;
+    padding-top: 1em;
 }
 
 .profile-header {

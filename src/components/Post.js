@@ -8,10 +8,11 @@ import AuthContext from "../context/AuthContext";
 import { calculateAge } from "../utils/calculateAge";
 import { getComments } from "../utils/getComments";
 import { getAccounts } from "../utils/getAccounts";
+import { postComment } from "../utils/postComment";
 
 function Post(props) {
 
-    let {authTokens, user, logoutUser} = useContext(AuthContext);
+    let {authTokens, user, userInfo, logoutUser} = useContext(AuthContext);
     let [likes, setLikes] = useState(props.post.likes);
     let [comments, setComments] = useState(null);
     let [accounts, setAccounts] = useState(null);
@@ -58,6 +59,20 @@ function Post(props) {
         }
     }
 
+    let [reload, setReload] = useState(false);
+
+    let submitComment = (e) => {
+        e.preventDefault();
+        postComment(e, authTokens, user, props.post.id);
+        setReload(true);
+        e.target.reset();
+    }
+
+    useEffect(() => {
+        getComments(authTokens, setComments, logoutUser, props.post.id);
+        setReload(false);
+    },[reload])
+
     if (postAge && comments && accounts) {
         return (
             <div className="post">
@@ -93,7 +108,7 @@ function Post(props) {
                         <img src={likeIcon} alt="Like post"/>
                         <span>Like</span>
                     </div>
-                    <div className="post-btn">
+                    <div className="post-btn" onClick={showComments}>
                         <img src={commentIcon} alt="Like post"/>
                         <span>Comment</span>
                     </div>
@@ -117,6 +132,18 @@ function Post(props) {
                             </div>
                         )
                     })}
+                    <form id="comment-form" onSubmit={submitComment}>
+                        <div className="user-post-comment">
+                            {userInfo.profile_picture ? 
+                                            <img className="user-post-comment-img" src={userInfo.profile_picture} alt=""/>
+                                            : <img className="user-post-comment-img" src={defaultProfilePicture} alt=""/>}
+                            <input className="user-text-input comment-input" type="text" name="body" placeholder="Write a comment..."/>
+                        </div>
+                        <div className="comment-button-container">
+                            <button className="comment-button" type="submit">Post</button>
+                        </div>  
+                    </form> 
+
                 </div>
         </div>
         )
