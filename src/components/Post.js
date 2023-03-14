@@ -31,7 +31,6 @@ function Post(props) {
 
 
     async function submitLike() {
-        
         if (!likedByUser.current) {
             setLikes(likes+1)
             likedByUser.current = true;
@@ -39,12 +38,11 @@ function Post(props) {
             setLikes(likes-1)
             likedByUser.current = false;
         }
-
         await putLike(authTokens, user, props.post.id)
         setLikeIsDisabled(false);
     }
 
-    let handleClick = async () => {
+    let handlePostLike = async () => {
         setLikeIsDisabled(true);
         await submitLike();
     }
@@ -113,7 +111,7 @@ function Post(props) {
                     }
                 </div>
                 <div className="post-buttons">
-                    <div className="post-btn" onClick={likeIsDisabled? () => {} : handleClick}>
+                    <div className="post-btn" onClick={likeIsDisabled? () => {} : handlePostLike}>
                         <img src={likeIcon} alt="Like post"/>
                         <span>Like</span>
                     </div>
