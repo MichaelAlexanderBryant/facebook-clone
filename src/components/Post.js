@@ -118,11 +118,13 @@ function Post(props) {
                         let postAuthor = accounts.filter(account => {return account.id === comment.author})[0]
                         return (
                             <div className="comment" key={index}>
-                                <img className="post-comment-author-img"  src={postAuthor.profile_picture} alt=""/>
                                 <div className="comment-text-link">
-                                    <div className="comment-text-area">
-                                        <span className="comment-author">{postAuthor.first_name + " " + postAuthor.last_name}</span>
-                                        <span className="comment-comment">{comment.comment}</span>
+                                    <div className="comment-top">
+                                        <img className="post-comment-author-img"  src={postAuthor.profile_picture} alt=""/>
+                                        <div className="comment-text-area">
+                                            <span className="comment-author">{postAuthor.first_name + " " + postAuthor.last_name}</span>
+                                            <span className="comment-comment">{comment.comment}</span>
+                                        </div>
                                     </div>
                                     <div className="comment-like-age">
                                         <span className="like-comment">Like</span>

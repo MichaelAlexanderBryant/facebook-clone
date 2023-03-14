@@ -389,6 +389,12 @@ a {
     padding-left: .2em;
 }
 
+.comment-top {
+    display:flex;
+    align-items: center;
+    gap: .2em;
+}
+
 .comment-text-area {
     display:flex;
     flex-direction: column;
@@ -411,7 +417,7 @@ a {
     color: #848484;
     display: flex;
     gap: 1em;
-    padding-left: 1.1em;
+    padding-left: 3.2em;
 }
 
 .like-comment {
