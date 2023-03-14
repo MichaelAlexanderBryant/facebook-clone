@@ -12,7 +12,6 @@ import { postPost } from "../utils/postPost";
 
 function Feed() {
 
-  const navigate = useNavigate();
   let [posts, setPosts] = useState(null);
   let [accounts, setAccounts] = useState(null);
   let {authTokens, user, userInfo, logoutUser} = useContext(AuthContext);
@@ -23,9 +22,18 @@ function Feed() {
     getAccounts(authTokens, setAccounts, logoutUser);
   }, []);
 
+  let [reload, setReload] = useState(false)
+
   function submitPost(e) {
-    postPost(e, authTokens, user, navigate);
+    postPost(e, authTokens, user);
+    setReload(true);
+    e.target.reset();
   }
+
+  useEffect(()=> {
+    getPosts(authTokens, setPosts, logoutUser);
+    setReload(false);
+  }, [reload])
 
   if (userInfo && accounts && posts) {
     

@@ -1,4 +1,4 @@
-let postPost = async (e, authTokens, user, navigate) => {
+let postPost = async (e, authTokens, user) => {
     e.preventDefault();
 
     const uploadData = new FormData();
@@ -17,7 +17,7 @@ let postPost = async (e, authTokens, user, navigate) => {
     });
 
     if (response.status === 201) {
-        navigate("/");
+        return
     } else {
         alert("Something went wrong");
     };  
