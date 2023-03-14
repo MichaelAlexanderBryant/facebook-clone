@@ -33,7 +33,7 @@ function Profile() {
     }
   
     useEffect(()=> {
-      getPosts(authTokens, setPosts, logoutUser);
+      getPosts(authTokens, setPosts, logoutUser, userId);
       setReload(false);
     }, [reload])
 
