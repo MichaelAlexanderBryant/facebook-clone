@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import FriendRequests from "../components/FriendRequests";
 import { getAccounts } from "../utils/getAccounts";
-import { getFriendRequests } from "../utils/getFriendRequests";
+import { getFriendRequestsToUser } from "../utils/getFriendRequestsToUser";
 import NavBar from "../components/NavBar";
 import MiniSidebar from "../components/MiniSidebar";
 import FriendsList from "../components/FriendsList";
@@ -18,7 +18,7 @@ function Friends() {
 
 
     useEffect(() => {
-        getFriendRequests(authTokens, user, setFriendRequests, logoutUser);
+        getFriendRequestsToUser(authTokens, user, setFriendRequests, logoutUser);
         getAccounts(authTokens, setAccounts, logoutUser);
     },[])
 

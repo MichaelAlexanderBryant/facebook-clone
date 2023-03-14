@@ -1,4 +1,4 @@
-let getFriendRequests = async (authTokens, user, setFriendRequests, logoutUser) => {
+let getFriendRequestsFromUser = async (authTokens, user, setFriendRequests, logoutUser) => {
     let response = await fetch('http://127.0.0.1:8000/api/accounts/friend_requests/', {
         method: 'GET',
         headers: {
@@ -10,15 +10,15 @@ let getFriendRequests = async (authTokens, user, setFriendRequests, logoutUser) 
 
     if (response.status === 200) {
         data = data.filter(elt => {
-            return (parseInt(elt.to_user) === parseInt(user.user_id))
+            return (parseInt(elt.from_user) === parseInt(user.user_id))
         })
         data = data.map(elt => {
-            return (elt.from_user)
+            return (elt.to_user)
         })
-        setFriendRequests(data);
+        await setFriendRequests(data);
     } else if (response.statusText === 'Unauthorized') {
         logoutUser();
     };
 };
 
-export {getFriendRequests};
+export {getFriendRequestsFromUser};
