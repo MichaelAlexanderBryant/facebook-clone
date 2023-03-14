@@ -126,7 +126,7 @@ function Post(props) {
                     {comments.map((comment, index) => {
                         let postAuthor = accounts.filter(account => {return account.id === comment.author})[0]
                         return (
-                            <Comment index={index} postAuthor={postAuthor} comment={comment}/>
+                            <Comment key={index} postAuthor={postAuthor} comment={comment}/>
                         )
                     })}
                     <NewComment submitComment={submitComment} />

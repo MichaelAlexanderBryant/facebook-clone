@@ -34,12 +34,8 @@ function Comment(props) {
         await submitCommentLike();
     }
 
-    useEffect(()=>{
-        console.log(likes)
-    }, [likes])
-
     return (
-        <div className="comment" key={props.index}>
+        <div className="comment">
             <div className="comment-text-link">
                 <div className="comment-top">
                     <img className="post-comment-author-img"  src={props.postAuthor.profile_picture} alt=""/>
