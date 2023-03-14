@@ -87,21 +87,30 @@ function Post(props) {
                         </div>
                     </a>
                 </div>
+                { props.post.body ?
                 <p className="post-text">{props.post.body}</p>
+                : null
+                }
+                {props.post.image ?
                 <img className="post-image" src={props.post.image} alt=""/>
+                : null
+                }
                 <div className="post-likes-comments">
+                    {likes > 0 ?
                     <div className="post-likes">
                         <img src={likedIcon} alt="Liked" className="liked-icon"/>
                         <span className="like-count">{likes}</span>
                     </div>
+                    : null
+                    }
+                    {comments.length > 0 ? 
                     <div className="post-comments-count">
-                        {comments.length > 0 ? 
                         <span className="comment-count" onClick={showComments}>
                             {comments.length} {comments.length === 1 ? "comment": "comments"}
                         </span>
-                        : null
-                        }
                     </div>
+                    : null
+                    }
                 </div>
                 <div className="post-buttons">
                     <div className="post-btn" onClick={likeIsDisabled? () => {} : handleClick}>
@@ -129,6 +138,10 @@ function Post(props) {
                                     <div className="comment-like-age">
                                         <span className="like-comment">Like</span>
                                         <span className="comment-age">{calculateAge(comment)}</span>
+                                        <span className="comment-like-count-container">
+                                            <img src={likedIcon} alt="Liked" className="liked-icon"/>
+                                            <span className="comment-like-count">{comment.likes}</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>

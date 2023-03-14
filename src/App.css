@@ -308,33 +308,35 @@ a {
 .post-text {
     width: 100%;
     font-size: 1em;
+    padding-top: .75em;
+    margin-bottom:0.75em;
 }
 
 .post-image {
     width: 100%;
     height: auto;
-    padding-bottom: 1em;
+    padding-bottom: 1.5em;
+    padding-top: 1.5em;
 }
 
 .post-likes-comments {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
+    height: auto;
 }
 
 .post-likes {
     display: flex;
     gap: 0.5em;
-    padding-bottom: 0.5em;
+    align-items: center;
 }
 
 .post-comments-count {
     display: flex;
     justify-content: end;
     gap: 0.5em;
-    padding-bottom: 0.5em;
+    width: 100%;
 }
 
 .liked-icon {
@@ -347,7 +349,6 @@ a {
 }
 
 .post-buttons {
-
     width: 100%;
     display: flex;
     justify-content: center;
@@ -355,6 +356,7 @@ a {
     gap: 2em;
     border-top: 1px solid #d0d2d6;
     padding-top: 1em;
+    margin-top: 1em;
 }
 
 .post-btn, .post-btn-disabled {
@@ -424,8 +426,19 @@ a {
     font-weight: bold;
 }
 
-.like-comment, .comment-age {
+.like-comment, .comment-age, .comment-like-count {
     font-size: .8em;
+}
+
+.comment-like-count-container {
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+}
+
+.comment-like-count-container > img {
+    width: 14px;
+    height: 14px;
 }
 
 .post-comment-author-img{
