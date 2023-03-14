@@ -2,17 +2,19 @@ import defaultProfilePicture from "../assets/default-profile-picture.png";
 import likeIcon from "../assets/like-icon.png";
 import likedIcon from "../assets/liked-icon.svg";
 import commentIcon from "../assets/comment-icon.png";
-import { putLike } from "../utils/putLike";
+import { putPostLike } from "../utils/putPostLike";
 import { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { calculateAge } from "../utils/calculateAge";
 import { getComments } from "../utils/getComments";
 import { getAccounts } from "../utils/getAccounts";
 import { postComment } from "../utils/postComment";
+import Comment from "./Comment";
+import NewComment from "./NewComment";
 
 function Post(props) {
 
-    let {authTokens, user, userInfo, logoutUser} = useContext(AuthContext);
+    let {authTokens, user, logoutUser} = useContext(AuthContext);
     let [likes, setLikes] = useState(props.post.likes);
     let [comments, setComments] = useState(null);
     let [accounts, setAccounts] = useState(null);
@@ -30,7 +32,7 @@ function Post(props) {
     },[])
 
 
-    async function submitLike() {
+    async function submitPostLike() {
         if (!likedByUser.current) {
             setLikes(likes+1)
             likedByUser.current = true;
@@ -38,13 +40,13 @@ function Post(props) {
             setLikes(likes-1)
             likedByUser.current = false;
         }
-        await putLike(authTokens, user, props.post.id)
+        await putPostLike(authTokens, user, props.post.id)
         setLikeIsDisabled(false);
     }
 
     let handlePostLike = async () => {
         setLikeIsDisabled(true);
-        await submitLike();
+        await submitPostLike();
     }
 
     let [hideComments, setHideComments] = useState(true);
@@ -124,39 +126,10 @@ function Post(props) {
                     {comments.map((comment, index) => {
                         let postAuthor = accounts.filter(account => {return account.id === comment.author})[0]
                         return (
-                            <div className="comment" key={index}>
-                                <div className="comment-text-link">
-                                    <div className="comment-top">
-                                        <img className="post-comment-author-img"  src={postAuthor.profile_picture} alt=""/>
-                                        <div className="comment-text-area">
-                                            <span className="comment-author">{postAuthor.first_name + " " + postAuthor.last_name}</span>
-                                            <span className="comment-comment">{comment.comment}</span>
-                                        </div>
-                                    </div>
-                                    <div className="comment-like-age">
-                                        <span className="like-comment">Like</span>
-                                        <span className="comment-age">{calculateAge(comment)}</span>
-                                        <span className="comment-like-count-container">
-                                            <img src={likedIcon} alt="Liked" className="liked-icon"/>
-                                            <span className="comment-like-count">{comment.likes}</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                            <Comment index={index} postAuthor={postAuthor} comment={comment}/>
                         )
                     })}
-                    <form id="comment-form" onSubmit={submitComment}>
-                        <div className="user-post-comment">
-                            {userInfo.profile_picture ? 
-                                            <img className="user-post-comment-img" src={userInfo.profile_picture} alt=""/>
-                                            : <img className="user-post-comment-img" src={defaultProfilePicture} alt=""/>}
-                            <input className="user-text-input comment-input" type="text" name="body" placeholder="Write a comment..."/>
-                        </div>
-                        <div className="comment-button-container">
-                            <button className="comment-button" type="submit">Post</button>
-                        </div>  
-                    </form> 
-
+                    <NewComment submitComment={submitComment} />
                 </div>
         </div>
         )

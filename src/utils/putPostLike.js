@@ -1,6 +1,6 @@
 import { getPost } from "./getPost";
 
-let putLike = async (authTokens, user, postId) => {
+let putPostLike = async (authTokens, user, postId) => {
     
     let updateLikes = async (post) => {
       const uploadData = new FormData();
@@ -43,4 +43,4 @@ let putLike = async (authTokens, user, postId) => {
     await fetchPost();
   }
 
-export {putLike};
+export {putPostLike};
