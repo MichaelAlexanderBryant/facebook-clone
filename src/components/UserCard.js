@@ -23,10 +23,6 @@ function UserCard(props) {
         props.removeFriend(e, props.person.id);
     }
 
-    useEffect(()=> {
-        console.log(props)
-    },[])
-
     if (user && props.userFriends && props.incomingFriendRequests && props.sentFriendRequests) {
         return (
             <div className="user-card">

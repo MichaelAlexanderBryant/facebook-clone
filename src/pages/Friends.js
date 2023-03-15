@@ -19,6 +19,7 @@ function Friends() {
     let currentUrl = window.location.href
     let userId = currentUrl.slice(currentUrl.indexOf("friends/")+8)
 
+    let [incomingFriendRequestsIds, setIncomingFriendRequestsIds] = useState(null)
     let [incomingFriendRequests, setIncomingFriendRequests] = useState(null)
     let [userFriends, setUserFriends] = useState(null)
 
@@ -30,6 +31,9 @@ function Friends() {
             let data = await getFriendRequestsToUser(authTokens, user, logoutUser);
             let incomingFriendRequestArray = data.map(elt => {return (elt.from_user)})
             setIncomingFriendRequests(incomingFriendRequestArray);
+
+            let incomingFriendRequestsIdsArray = data.map(elt => {return (elt.id)})
+            setIncomingFriendRequestsIds(incomingFriendRequestsIdsArray);
         }
         fetchIncomingFriendRequests();
 
@@ -49,15 +53,32 @@ function Friends() {
             await deleteFriendRequest(authTokens, requestId, logoutUser);
             setIncomingFriendRequests(null);
             setAccounts(null);
+            setUserFriends(null);
             setUserDeleted(true);
         }
         executeRequest();
     }
 
     useEffect(() => {
-        let data = getFriendRequestsToUser(authTokens, user, logoutUser);
-        setIncomingFriendRequests(data);
         getAccounts(authTokens, setAccounts, logoutUser);
+
+        let fetchIncomingFriendRequests = async () => {
+            let data = await getFriendRequestsToUser(authTokens, user, logoutUser);
+            let incomingFriendRequestArray = data.map(elt => {return (elt.from_user)})
+            setIncomingFriendRequests(incomingFriendRequestArray);
+
+            let incomingFriendRequestsIdsArray = data.map(elt => {return (elt.id)})
+            setIncomingFriendRequestsIds(incomingFriendRequestsIdsArray);
+        }
+        fetchIncomingFriendRequests();
+
+        let fetchUserFriends= async () => {
+            let account =  await getAccount(authTokens,user.user_id)
+            let data = account['friends'];
+            setUserFriends(data);
+        }
+        fetchUserFriends();
+        
         setUserDeleted(false)
     }, [userDeleted])
 
@@ -74,6 +95,7 @@ function Friends() {
                 <div className="allusers-container">
                     {parseInt(userId) === user.user_id ?
                     <FriendRequests incomingFriendRequests={incomingFriendRequests}
+                                    incomingFriendRequestsIds={incomingFriendRequestsIds}
                                     accounts={accounts}
                                     acceptRequestandDelete={acceptRequestandDelete}/>
                     : null}
