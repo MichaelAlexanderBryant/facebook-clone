@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import Post from "./Post";
 
 function ProfilePosts(props) {
