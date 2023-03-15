@@ -8,6 +8,8 @@ import Posts from "../components/Posts";
 import { getPosts } from "../utils/api/getPosts";
 import { getAccounts } from "../utils/api/getAccounts";
 import { postPost } from "../utils/api/postPost";
+import { postComment } from "../utils/api/postComment";
+import { putPostLike } from "../utils/api/putPostLike";
 
 function Feed() {
 
@@ -21,10 +23,13 @@ function Feed() {
     getAccounts(authTokens, setAccounts, logoutUser);
   }, []);
 
+  let [reload, setReload] = useState(true);
+
   function submitPost(e) {
     postPost(e, authTokens, user);
-    setPosts([...posts])
+    setPosts(...posts)
     e.target.reset();
+    setReload(true);
   }
 
   useEffect(()=> {
@@ -33,10 +38,20 @@ function Feed() {
       setPosts(data);
     } 
     fetchPosts();
-  }, [posts])
+    setReload(false);
+  }, [reload])
+
+  let handlePostLike = (postId) => {
+
+    let putLike = async () => {
+      await putPostLike(authTokens, user, postId)
+      setPosts([...posts])
+    }
+    putLike();
+    setReload(true);  
+  }
 
   if (userInfo && accounts && posts) {
-    
     return (
       <div className="feed-container">
         <NavBar/>
@@ -44,7 +59,7 @@ function Feed() {
         <FeedFriends accounts={accounts}/>
         <div className="feed-center-panel">
           <NewPost submitPost={submitPost}/>
-          <Posts accounts={accounts} posts={posts} />
+          <Posts accounts={accounts} posts={posts} handlePostLike={handlePostLike}/>
         </div>
       </div>
     );}

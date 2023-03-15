@@ -2,7 +2,6 @@ import defaultProfilePicture from "../assets/default-profile-picture.png";
 import likeIcon from "../assets/like-icon.png";
 import likedIcon from "../assets/liked-icon.svg";
 import commentIcon from "../assets/comment-icon.png";
-import { putPostLike } from "../utils/api/putPostLike";
 import { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { calculateAge } from "../utils/calculateAge";
@@ -33,7 +32,7 @@ function Post(props) {
     },[])
 
 
-    async function submitPostLike() {
+    async function showPostLike() {
         if (!likedByUser.current) {
             setLikes(likes+1)
             likedByUser.current = true;
@@ -41,13 +40,13 @@ function Post(props) {
             setLikes(likes-1)
             likedByUser.current = false;
         }
-        await putPostLike(authTokens, user, props.post.id)
-        setLikeIsDisabled(false);
     }
 
-    let handlePostLike = async () => {
+    let handleLike = async () => {
         setLikeIsDisabled(true);
-        await submitPostLike();
+        showPostLike();
+        await props.handlePostLike(props.post.id);
+        setLikeIsDisabled(false);
     }
 
     let [hideComments, setHideComments] = useState(true);
@@ -60,16 +59,20 @@ function Post(props) {
         }
     }
 
+    let [reload, setReload] = useState(false)
+
     let submitComment = (e) => {
         e.preventDefault();
         postComment(e, authTokens, user, props.post.id);
         setComments([...comments])
         e.target.reset();
+        setReload(true);
     }
 
     useEffect(() => {
         getComments(authTokens, setComments, logoutUser, props.post.id);
-    },[comments])
+        setReload(false);
+    },[reload])
 
     if (postAge && comments && accounts) {
         return (
@@ -111,7 +114,7 @@ function Post(props) {
                     }
                 </div>
                 <div className="post-buttons">
-                    <div className="post-btn" onClick={likeIsDisabled? () => {} : handlePostLike}>
+                    <div className="post-btn" onClick={likeIsDisabled? () => {} : handleLike}>
                         <img src={likeIcon} alt="Like post"/>
                         <span>Like</span>
                     </div>

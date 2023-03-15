@@ -9,6 +9,7 @@ import { getProfile } from "../utils/api/getProfile";
 import { getPosts } from "../utils/api/getPosts";
 import NewPost from "../components/NewPost";
 import { postPost } from "../utils/api/postPost";
+import { putPostLike } from "../utils/api/putPostLike";
 
 function Profile() {
 
@@ -24,19 +25,33 @@ function Profile() {
         getPosts(authTokens, setPosts, logoutUser, userId);
     }, []) 
 
+    let [reload, setReload] = useState(true);
+
     function submitPost(e) {
-        postPost(e, authTokens, user);
+      postPost(e, authTokens, user);
+      setPosts(...posts)
+      e.target.reset();
+      setReload(true);
+    }
+  
+    useEffect(()=> {
+      let fetchPosts = async () =>{
+        let data = await getPosts(authTokens, logoutUser);
+        setPosts(data);
+      } 
+      fetchPosts();
+      setReload(false);
+    }, [reload])
+  
+    let handlePostLike = (postId) => {
+  
+      let putLike = async () => {
+        await putPostLike(authTokens, user, postId)
         setPosts([...posts])
-        e.target.reset();
       }
-    
-      useEffect(()=> {
-        let fetchPosts = async () =>{
-          let data = await getPosts(authTokens, logoutUser);
-          setPosts(data);
-        } 
-        fetchPosts();
-      }, [posts])
+      putLike();
+      setReload(true);  
+    }
 
     if (posts && profile) {
         return (
@@ -55,7 +70,7 @@ function Profile() {
                                     : null
                                     }
                                     {posts.length > 0 ?
-                                        <Posts account={profile} posts={posts} />
+                                        <Posts account={profile} posts={posts} handlePostLike={handlePostLike}/>
                                         :<div className="post">No posts to display</div>}
                                 </div>
                             </div>

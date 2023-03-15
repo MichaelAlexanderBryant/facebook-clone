@@ -6,8 +6,8 @@ function Posts(props) {
     return (
         <div>
             {props.accounts? 
-                <FeedPosts accounts={props.accounts} posts={props.posts} />
-                :<ProfilePosts account={props.account} posts={props.posts} />}
+                <FeedPosts accounts={props.accounts} posts={props.posts} handlePostLike={props.handlePostLike}/>
+                :<ProfilePosts account={props.account} posts={props.posts} handlePostLike={props.handlePostLike}/>}
         </div>
     )
 }
