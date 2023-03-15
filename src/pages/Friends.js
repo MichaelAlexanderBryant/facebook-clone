@@ -25,7 +25,7 @@ function Friends() {
         getAccounts(authTokens, setAccounts, logoutUser);
     },[])
 
-    let deleteAndRerender = (requestId, toUserId, fromUserId) => {
+    let deleteRequestAndRerender = (requestId, toUserId, fromUserId) => {
         let executeRequest = async() => {
             await putAccountFriend(authTokens, toUserId, fromUserId);
             await deleteFriendRequest(authTokens, requestId, logoutUser);
@@ -49,7 +49,7 @@ function Friends() {
                 <MiniSidebar/>
                 <div className="allusers-container">
                     {parseInt(userId) === user.user_id ?
-                    <FriendRequests friendRequests={friendRequests} accounts={accounts} deleteAndRerender={deleteAndRerender}/>
+                    <FriendRequests friendRequests={friendRequests} accounts={accounts} deleteAndRerender={deleteRequestAndRerender}/>
                     : null}
                     <FriendsList accounts={accounts} userId={userId}/>
                 </div>

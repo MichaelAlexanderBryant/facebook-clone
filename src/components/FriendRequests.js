@@ -27,7 +27,11 @@ function FriendRequests(props) {
                                 if (friendRequests && friendRequests.includes(person.id)) {
                                     let requestIndex = friendRequests.indexOf(person.id)
                                     return (
-                                        <UserCard display="friends" person={person} key={idx} requestId={requestId[requestIndex]} deleteAndRerender={props.deleteAndRerender}/>
+                                        <UserCard display="friends"
+                                                    person={person}
+                                                    key={idx}
+                                                    requestId={requestId[requestIndex]}
+                                                    deleteRequestAndRerender={props.deleteRequestAndRerender}/>
                                     )}
                         }):null}
                     </div>
