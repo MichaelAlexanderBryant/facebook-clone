@@ -1,4 +1,4 @@
-let getProfile = async (userId, authTokens, setProfile, logoutUser) => {
+let getProfile = async (userId, authTokens, logoutUser) => {
     let response = await fetch(`http://127.0.0.1:8000/api/accounts/${userId}`, {
         method: 'GET',
         headers: {
@@ -9,7 +9,7 @@ let getProfile = async (userId, authTokens, setProfile, logoutUser) => {
     let data = await response.json()
 
     if (response.status === 200) {
-        setProfile(data);
+        return data;
     } else if (response.statusText === 'Unauthorized') {
         logoutUser();
     };

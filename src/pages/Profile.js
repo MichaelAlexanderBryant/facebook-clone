@@ -21,8 +21,21 @@ function Profile() {
     let {user, authTokens, logoutUser} = useContext(AuthContext);
 
     useEffect(() => {
-        getProfile(userId, authTokens, setProfile, logoutUser);
-        getPosts(authTokens, setPosts, logoutUser, userId);
+
+        let fetchProfile = async () => {
+            let data = await getProfile(userId, authTokens, logoutUser);
+            setProfile(data);
+        }
+        fetchProfile();
+
+        let fetchPosts = async () =>{
+            let data = await getPosts(authTokens, logoutUser);
+            console.log(userId)
+            data = data.filter(post => {return post.author === parseInt(userId)})
+            
+            setPosts(data);
+          } 
+          fetchPosts();
     }, []) 
 
     let [reload, setReload] = useState(true);
@@ -35,11 +48,13 @@ function Profile() {
     }
   
     useEffect(()=> {
-      let fetchPosts = async () =>{
+    
+    let fetchPosts = async () =>{
         let data = await getPosts(authTokens, logoutUser);
+        data = data.filter(post => {return post.author === parseInt(userId)})
         setPosts(data);
-      } 
-      fetchPosts();
+        } 
+        fetchPosts();
       setReload(false);
     }, [reload])
   

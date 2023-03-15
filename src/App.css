@@ -490,6 +490,7 @@ a {
     background-color: #1877f2;
     height: 20em;
     width: 100%;
+    border-radius: 0 0 10px 10px;
  }
 
  .bottom-header {
