@@ -4,22 +4,31 @@ import defaultProfilePicture from "../assets/default-profile-picture.png";
 import { postFriendRequest } from "../utils/postFriendRequest";
 import { getFriendRequestsFromUser } from "../utils/getFriendRequestsFromUser";
 import { getAccount } from "../utils/getAccount";
+import { getFriendRequestsToUser } from "../utils/getFriendRequestsToUser";
 
 
 function UserCard(props) {
 
-    let {authTokens, user, logoutUser} = useContext(AuthContext)
-    let [friendRequests, setFriendRequests] = useState(null)
+    let {authTokens, user,logoutUser} = useContext(AuthContext)
+    let [incomingFriendRequests, setIncomingFriendRequests] = useState(null)
+    let [sentFriendRequests, setSentFriendRequests] = useState(null)
     let [friendRequestSent, setFriendRequestSent] = useState(false)
     let [userFriends, setUserFriends] = useState(null)
 
     useEffect(() => {
-        let fetchFriendRequests = async () => {
-            await getFriendRequestsFromUser(authTokens, user, setFriendRequests, logoutUser);
-            if (friendRequests){
-                setFriendRequests(friendRequests.map(elt => {return (elt.to_user)}))}
+        let fetchIncomingFriendRequests = async () => {
+            await getFriendRequestsFromUser(authTokens, user, setIncomingFriendRequests, logoutUser);
+            if (incomingFriendRequests){
+                setIncomingFriendRequests(incomingFriendRequests.map(elt => {return (elt.to_user)}))}
         }
-        fetchFriendRequests();
+        fetchIncomingFriendRequests();
+
+        let fetchSentFriendRequests = async () => {
+            await getFriendRequestsToUser(authTokens, user, setSentFriendRequests, logoutUser);
+            if (sentFriendRequests){
+                setSentFriendRequests(sentFriendRequests.map(elt => {return (elt.from_user)}))}
+        }
+        fetchSentFriendRequests();
 
         let fetchAccount = async () => {
             let account =  await getAccount(authTokens,user.user_id)
@@ -32,17 +41,25 @@ function UserCard(props) {
     ,[])
 
     useEffect(() => {
-        if (friendRequests){
-            let pendingRequest = friendRequests.filter(request => {
+        if (incomingFriendRequests){
+            let pendingRequest = incomingFriendRequests.filter(request => {
                 return props.person.id === request;
             })
             if (pendingRequest.length > 0) {
                 setFriendRequestSent(true)
             }}
-    }, [friendRequests])
+    }, [incomingFriendRequests])
 
     let handleAddFriend = (e) => {
         postFriendRequest(e, authTokens, user, props.person.id);
+
+        let fetchSentFriendRequests = async () => {
+            await getFriendRequestsToUser(authTokens, user, setSentFriendRequests, logoutUser);
+            if (sentFriendRequests){
+                setSentFriendRequests(sentFriendRequests.map(elt => {return (elt.from_user)}))}
+        }
+        fetchSentFriendRequests();
+
         setFriendRequestSent(true);
     }
 
@@ -52,7 +69,7 @@ function UserCard(props) {
 
 
 
-    if (user && userFriends && friendRequests) {
+    if (user && userFriends && incomingFriendRequests && sentFriendRequests) {
         return (
             <div className="user-card">
                 <div className="allusers-img-name">
@@ -77,7 +94,7 @@ function UserCard(props) {
                 props.display==="allusers" ? (parseInt(props.person.id) !== parseInt(user.user_id) ?
                     (userFriends && userFriends.includes(props.person.id) ?
                     <button type="button" className="allusers-btn">Unfriend</button>
-                    : (!friendRequestSent? <button type="button" className="allusers-btn" onClick={handleAddFriend}>Add friend</button>
+                    : (sentFriendRequests.includes(props.person.id)? <button type="button" className="allusers-btn" onClick={handleAddFriend}>Add friend</button>
                     : <button type="button" className="allusers-btn" disabled={true}>Cancel request</button>))
                     : null)
                     : (parseInt(props.person.id) !== parseInt(user.user_id) ?
