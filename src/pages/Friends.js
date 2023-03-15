@@ -8,10 +8,10 @@ import MiniSidebar from "../components/MiniSidebar";
 import FriendsList from "../components/FriendsList";
 import { putAccountFriend } from "../utils/putAccountFriend";
 import { deleteFriendRequest } from "../utils/deleteFriendRequest";
+import { getAccount } from "../utils/getAccount";
 
 function Friends() {
 
-    let [friendRequests, setFriendRequests] = useState(null);
     let [accounts, setAccounts] = useState(null);
     let [userDeleted, setUserDeleted] = useState(false);
     let {authTokens, user, logoutUser} = useContext(AuthContext);
@@ -19,17 +19,35 @@ function Friends() {
     let currentUrl = window.location.href
     let userId = currentUrl.slice(currentUrl.indexOf("friends/")+8)
 
+    let [incomingFriendRequests, setIncomingFriendRequests] = useState(null)
+    let [userFriends, setUserFriends] = useState(null)
 
     useEffect(() => {
-        getFriendRequestsToUser(authTokens, user, setFriendRequests, logoutUser);
-        getAccounts(authTokens, setAccounts, logoutUser);
-    },[])
 
-    let deleteRequestAndRerender = (requestId, toUserId, fromUserId) => {
+        getAccounts(authTokens, setAccounts, logoutUser);
+
+        let fetchIncomingFriendRequests = async () => {
+            let data = await getFriendRequestsToUser(authTokens, user, logoutUser);
+            let incomingFriendRequestArray = data.map(elt => {return (elt.from_user)})
+            setIncomingFriendRequests(incomingFriendRequestArray);
+        }
+        fetchIncomingFriendRequests();
+
+        let fetchUserFriends= async () => {
+            let account =  await getAccount(authTokens,user.user_id)
+            let data = account['friends'];
+            setUserFriends(data);
+        }
+        fetchUserFriends();
+        }
+
+    ,[])
+
+    let acceptRequestandDelete = (requestId, toUserId, fromUserId) => {
         let executeRequest = async() => {
             await putAccountFriend(authTokens, toUserId, fromUserId);
             await deleteFriendRequest(authTokens, requestId, logoutUser);
-            setFriendRequests(null);
+            setIncomingFriendRequests(null);
             setAccounts(null);
             setUserDeleted(true);
         }
@@ -37,21 +55,32 @@ function Friends() {
     }
 
     useEffect(() => {
-        getFriendRequestsToUser(authTokens, user, setFriendRequests, logoutUser);
+        let data = getFriendRequestsToUser(authTokens, user, logoutUser);
+        setIncomingFriendRequests(data);
         getAccounts(authTokens, setAccounts, logoutUser);
         setUserDeleted(false)
     }, [userDeleted])
 
-    if (friendRequests && accounts) {
+    let removeFriend = (e, friendToRemove) => {
+        putAccountFriend(authTokens, user.user_id, friendToRemove);
+        putAccountFriend(authTokens, friendToRemove, user.user_id);
+    }
+
+    if (accounts && incomingFriendRequests && userFriends) {
         return (
             <div>
                 <NavBar/>
                 <MiniSidebar/>
                 <div className="allusers-container">
                     {parseInt(userId) === user.user_id ?
-                    <FriendRequests friendRequests={friendRequests} accounts={accounts} deleteAndRerender={deleteRequestAndRerender}/>
+                    <FriendRequests incomingFriendRequests={incomingFriendRequests}
+                                    accounts={accounts}
+                                    acceptRequestandDelete={acceptRequestandDelete}/>
                     : null}
-                    <FriendsList accounts={accounts} userId={userId}/>
+                    <FriendsList accounts={accounts}
+                                    userId={userId}
+                                    userFriends={userFriends}
+                                    removeFriend={removeFriend}/>
                 </div>
             </div>
         )

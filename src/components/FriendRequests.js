@@ -31,7 +31,9 @@ function FriendRequests(props) {
                                                     person={person}
                                                     key={idx}
                                                     requestId={requestId[requestIndex]}
-                                                    deleteRequestAndRerender={props.deleteRequestAndRerender}/>
+                                                    incomingFriendRequests={props.incomingFriendRequests}
+                                                    sentFriendRequests={[]}
+                                                    acceptRequestandDelete={props.acceptRequestandDelete}/>
                                     )}
                         }):null}
                     </div>

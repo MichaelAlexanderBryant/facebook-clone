@@ -25,7 +25,13 @@ function FriendsList(props) {
                     {props.accounts ? props.accounts.map((person, idx) => {
                         if (profile.friends && profile.friends.includes(person.id)) {
                             return (
-                                <UserCard friendsList={true} person={person} key={idx} />
+                                <UserCard friendsList={true}
+                                            person={person}
+                                            userFriends={props.userFriends}
+                                            incomingFriendRequests={[]}
+                                            sentFriendRequests={[]}
+                                            removeFriend={props.removeFriend}
+                                            key={idx} />
                         )} else return null;
                     }):null}
                 </div>

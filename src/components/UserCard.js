@@ -10,7 +10,7 @@ function UserCard(props) {
     let [friendRemoved, setFriendRemoved] = useState(false);
 
     let handleFriendAccept = () => {
-        props.deleteRequestAndRerender(props.requestId, user.user_id, props.person.id);
+        props.acceptRequestandDelete(props.requestId, user.user_id, props.person.id);
     }
 
     let handleAddFriend = (e) => {
@@ -23,8 +23,11 @@ function UserCard(props) {
         props.removeFriend(e, props.person.id);
     }
 
-    if (user && props.userFriends && props.incomingFriendRequests && props.sentFriendRequests) {
+    useEffect(()=> {
+        console.log(props)
+    },[])
 
+    if (user && props.userFriends && props.incomingFriendRequests && props.sentFriendRequests) {
         return (
             <div className="user-card">
                 <div className="allusers-img-name">
@@ -41,9 +44,9 @@ function UserCard(props) {
                 </div>
                 {(props.friendsList) ? (
                         parseInt(props.person.id) !== parseInt(user.user_id) ?
-                            (props.userFriends && props.userFriends.includes(props.person.id) ?
-                            <button type="button" className="allusers-btn">Unfriend</button>
-                            : <button type="button" className="allusers-btn">Add friend</button>)
+                            (props.userFriends && props.userFriends.includes(props.person.id) && !friendRemoved ?
+                            <button type="button" className="allusers-btn" onClick={handleRemoveFriend}>Unfriend</button>
+                            : <button type="button" className="allusers-btn" disabled={true}>Friend removed</button>)
                             : null) 
                         :(
                 props.display==="allusers" ? (parseInt(props.person.id) !== parseInt(user.user_id) ?
