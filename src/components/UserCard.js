@@ -3,19 +3,33 @@ import AuthContext from "../context/AuthContext";
 import defaultProfilePicture from "../assets/default-profile-picture.png";
 import { postFriendRequest } from "../utils/postFriendRequest";
 import { getFriendRequestsFromUser } from "../utils/getFriendRequestsFromUser";
+import { getAccount } from "../utils/getAccount";
+
 
 function UserCard(props) {
 
-    let {authTokens, user, userInfo, logoutUser} = useContext(AuthContext)
+    let {authTokens, user, logoutUser} = useContext(AuthContext)
     let [friendRequests, setFriendRequests] = useState(null)
     let [friendRequestSent, setFriendRequestSent] = useState(false)
+    let [userFriends, setUserFriends] = useState(null)
 
     useEffect(() => {
         let fetchFriendRequests = async () => {
             await getFriendRequestsFromUser(authTokens, user, setFriendRequests, logoutUser);
+            if (friendRequests){
+                setFriendRequests(friendRequests.map(elt => {return (elt.to_user)}))}
         }
         fetchFriendRequests();
-    },[])
+
+        let fetchAccount = async () => {
+            let account =  await getAccount(authTokens,user.user_id)
+            if (account) {
+                setUserFriends(account['friends']);
+            }
+        }
+        fetchAccount();
+        }
+    ,[])
 
     useEffect(() => {
         if (friendRequests){
@@ -32,8 +46,13 @@ function UserCard(props) {
         setFriendRequestSent(true);
     }
 
+    let handleFriendAccept = () => {
+        props.deleteAndRerender(props.requestId, user.user_id, props.person.id);
+    }
 
-    if (user && userInfo && friendRequests) {
+
+
+    if (user && userFriends && friendRequests) {
         return (
             <div className="user-card">
                 <div className="allusers-img-name">
@@ -50,21 +69,21 @@ function UserCard(props) {
                 </div>
                 {(props.friendsList) ? (
                         parseInt(props.person.id) !== parseInt(user.user_id) ?
-                            (userInfo.friends && userInfo.friends.includes(props.person.id) ?
+                            (userFriends && userFriends.includes(props.person.id) ?
                             <button type="button" className="allusers-btn">Unfriend</button>
-                            : <button type="button" className="allusers-btn">Add Friend</button>)
+                            : <button type="button" className="allusers-btn">Add friend</button>)
                             : null) 
                         :(
                 props.display==="allusers" ? (parseInt(props.person.id) !== parseInt(user.user_id) ?
-                    (userInfo.friends && userInfo.friends.includes(props.person.id) ?
+                    (userFriends && userFriends.includes(props.person.id) ?
                     <button type="button" className="allusers-btn">Unfriend</button>
-                    : (!friendRequestSent? <button type="button" className="allusers-btn" onClick={handleAddFriend}>Add Friend</button>
-                    : <button type="button" className="allusers-btn" disabled={true}>Friend Request Pending</button>))
+                    : (!friendRequestSent? <button type="button" className="allusers-btn" onClick={handleAddFriend}>Add friend</button>
+                    : <button type="button" className="allusers-btn" disabled={true}>Cancel request</button>))
                     : null)
                     : (parseInt(props.person.id) !== parseInt(user.user_id) ?
-                        (userInfo.friends && userInfo.friends.includes(props.person.id) ?
+                        (userFriends && userFriends.includes(props.person.id) ?
                         null
-                        : <button type="button" className="allusers-btn">Accept</button>)
+                        : <button type="button" className="allusers-btn" onClick={handleFriendAccept}>Accept</button>)
                         : null))
                 }
             </div>

@@ -12,9 +12,6 @@ let getFriendRequestsFromUser = async (authTokens, user, setFriendRequests, logo
         data = data.filter(elt => {
             return (parseInt(elt.from_user) === parseInt(user.user_id))
         })
-        data = data.map(elt => {
-            return (elt.to_user)
-        })
         await setFriendRequests(data);
     } else if (response.statusText === 'Unauthorized') {
         logoutUser();
