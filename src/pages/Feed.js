@@ -5,9 +5,9 @@ import Sidebar from "../components/Sidebar";
 import FeedFriends from "../components/FeedFriends";
 import NewPost from "../components/NewPost";
 import Posts from "../components/Posts";
-import { getPosts } from "../utils/getPosts";
-import { getAccounts } from "../utils/getAccounts";
-import { postPost } from "../utils/postPost";
+import { getPosts } from "../utils/api/getPosts";
+import { getAccounts } from "../utils/api/getAccounts";
+import { postPost } from "../utils/api/postPost";
 
 function Feed() {
 
@@ -21,18 +21,19 @@ function Feed() {
     getAccounts(authTokens, setAccounts, logoutUser);
   }, []);
 
-  let [reload, setReload] = useState(false)
-
   function submitPost(e) {
     postPost(e, authTokens, user);
-    setReload(true);
+    setPosts([...posts])
     e.target.reset();
   }
 
   useEffect(()=> {
-    getPosts(authTokens, setPosts, logoutUser);
-    setReload(false);
-  }, [reload])
+    let fetchPosts = async () =>{
+      let data = await getPosts(authTokens, logoutUser);
+      setPosts(data);
+    } 
+    fetchPosts();
+  }, [posts])
 
   if (userInfo && accounts && posts) {
     

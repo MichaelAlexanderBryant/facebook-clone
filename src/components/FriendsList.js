@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
-import { getProfile } from "../utils/getProfile";
+import { getProfile } from "../utils/api/getProfile";
 import UserCard from "./UserCard";
 
 function FriendsList(props) {

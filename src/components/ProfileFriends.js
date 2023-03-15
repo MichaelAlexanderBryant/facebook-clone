@@ -1,7 +1,7 @@
 import defaultProfilePicture from "../assets/default-profile-picture.png";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
-import { getAccounts } from "../utils/getAccounts";
+import { getAccounts } from "../utils/api/getAccounts";
 
 function ProfileFriends(props) {
 

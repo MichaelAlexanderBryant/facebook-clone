@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import likedIcon from "../assets/liked-icon.svg";
 import AuthContext from "../context/AuthContext";
 import { calculateAge } from "../utils/calculateAge";
-import { putCommentLike } from "../utils/putCommentLike";
+import { putCommentLike } from "../utils/api/putCommentLike";
 
 function Comment(props) {
 

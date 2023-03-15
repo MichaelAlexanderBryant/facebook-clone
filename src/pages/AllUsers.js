@@ -3,12 +3,12 @@ import MiniSidebar from "../components/MiniSidebar"
 import NavBar from "../components/NavBar"
 import UserCard from "../components/UserCard";
 import AuthContext from "../context/AuthContext";
-import { getAccount } from "../utils/getAccount";
-import { getAccounts } from "../utils/getAccounts";
-import { getFriendRequestsFromUser } from "../utils/getFriendRequestsFromUser";
-import { getFriendRequestsToUser } from "../utils/getFriendRequestsToUser";
-import { postFriendRequest } from "../utils/postFriendRequest";
-import { putAccountFriend } from "../utils/putAccountFriend";
+import { getAccount } from "../utils/api/getAccount";
+import { getAccounts } from "../utils/api/getAccounts";
+import { getFriendRequestsFromUser } from "../utils/api/getFriendRequestsFromUser";
+import { getFriendRequestsToUser } from "../utils/api/getFriendRequestsToUser";
+import { postFriendRequest } from "../utils/api/postFriendRequest";
+import { putAccountFriend } from "../utils/api/putAccountFriend";
 
 
 

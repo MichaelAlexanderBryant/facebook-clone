@@ -1,4 +1,4 @@
-let getPosts = async (authTokens, setPosts, logoutUser, userId=null) => {
+let getPosts = async (authTokens, logoutUser, userId=null) => {
     let response = await fetch('http://127.0.0.1:8000/api/posts/', {
         method: 'GET',
         headers: {
@@ -13,7 +13,7 @@ let getPosts = async (authTokens, setPosts, logoutUser, userId=null) => {
             data = data.filter(post => {
                 return (parseInt(post.author) === parseInt(userId))
         })}
-        setPosts(data);
+        return data;
     } else if (response.statusText === 'Unauthorized') {
         logoutUser();
     };

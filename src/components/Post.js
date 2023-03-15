@@ -2,20 +2,20 @@ import defaultProfilePicture from "../assets/default-profile-picture.png";
 import likeIcon from "../assets/like-icon.png";
 import likedIcon from "../assets/liked-icon.svg";
 import commentIcon from "../assets/comment-icon.png";
-import { putPostLike } from "../utils/putPostLike";
+import { putPostLike } from "../utils/api/putPostLike";
 import { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { calculateAge } from "../utils/calculateAge";
-import { getComments } from "../utils/getComments";
-import { getAccounts } from "../utils/getAccounts";
-import { postComment } from "../utils/postComment";
+import { getComments } from "../utils/api/getComments";
+import { getAccounts } from "../utils/api/getAccounts";
+import { postComment } from "../utils/api/postComment";
 import Comment from "./Comment";
 import NewComment from "./NewComment";
 
 function Post(props) {
 
     let {authTokens, user, logoutUser} = useContext(AuthContext);
-    let [likes, setLikes] = useState(props.post.likes);
+    let [likes, setLikes] = useState(null);
     let [comments, setComments] = useState(null);
     let [accounts, setAccounts] = useState(null);
     const likedByUser = useRef(false);
@@ -29,6 +29,7 @@ function Post(props) {
         setPostAge(calculateAge(props.post));
         getComments(authTokens, setComments, logoutUser, props.post.id);
         getAccounts(authTokens, setAccounts, logoutUser);
+        setLikes(props.post.likes)
     },[])
 
 
@@ -59,19 +60,16 @@ function Post(props) {
         }
     }
 
-    let [reload, setReload] = useState(false);
-
     let submitComment = (e) => {
         e.preventDefault();
         postComment(e, authTokens, user, props.post.id);
-        setReload(true);
+        setComments([...comments])
         e.target.reset();
     }
 
     useEffect(() => {
         getComments(authTokens, setComments, logoutUser, props.post.id);
-        setReload(false);
-    },[reload])
+    },[comments])
 
     if (postAge && comments && accounts) {
         return (

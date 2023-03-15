@@ -5,10 +5,10 @@ import AuthContext from "../context/AuthContext";
 import ProfileHeader from "../components/ProfileHeader";
 import ProfileFriends from "../components/ProfileFriends";
 import Posts from "../components/Posts";
-import { getProfile } from "../utils/getProfile";
-import { getPosts } from "../utils/getPosts";
+import { getProfile } from "../utils/api/getProfile";
+import { getPosts } from "../utils/api/getPosts";
 import NewPost from "../components/NewPost";
-import { postPost } from "../utils/postPost";
+import { postPost } from "../utils/api/postPost";
 
 function Profile() {
 
@@ -24,18 +24,19 @@ function Profile() {
         getPosts(authTokens, setPosts, logoutUser, userId);
     }, []) 
 
-    let [reload, setReload] = useState(false)
-
     function submitPost(e) {
-      postPost(e, authTokens, user);
-      setReload(true);
-      e.target.reset();
-    }
-  
-    useEffect(()=> {
-      getPosts(authTokens, setPosts, logoutUser, userId);
-      setReload(false);
-    }, [reload])
+        postPost(e, authTokens, user);
+        setPosts([...posts])
+        e.target.reset();
+      }
+    
+      useEffect(()=> {
+        let fetchPosts = async () =>{
+          let data = await getPosts(authTokens, logoutUser);
+          setPosts(data);
+        } 
+        fetchPosts();
+      }, [posts])
 
     if (posts && profile) {
         return (

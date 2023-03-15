@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import FriendRequests from "../components/FriendRequests";
-import { getAccounts } from "../utils/getAccounts";
-import { getFriendRequestsToUser } from "../utils/getFriendRequestsToUser";
+import { getAccounts } from "../utils/api/getAccounts";
+import { getFriendRequestsToUser } from "../utils/api/getFriendRequestsToUser";
 import NavBar from "../components/NavBar";
 import MiniSidebar from "../components/MiniSidebar";
 import FriendsList from "../components/FriendsList";
-import { putAccountFriend } from "../utils/putAccountFriend";
-import { deleteFriendRequest } from "../utils/deleteFriendRequest";
-import { getAccount } from "../utils/getAccount";
+import { putAccountFriend } from "../utils/api/putAccountFriend";
+import { deleteFriendRequest } from "../utils/api/deleteFriendRequest";
+import { getAccount } from "../utils/api/getAccount";
 
 function Friends() {
 
@@ -78,7 +78,7 @@ function Friends() {
             setUserFriends(data);
         }
         fetchUserFriends();
-        
+
         setUserDeleted(false)
     }, [userDeleted])
 
