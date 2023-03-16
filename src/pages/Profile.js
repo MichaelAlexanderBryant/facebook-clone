@@ -10,6 +10,8 @@ import { getPosts } from "../utils/api/getPosts";
 import NewPost from "../components/NewPost";
 import { postPost } from "../utils/api/postPost";
 import { putPostLike } from "../utils/api/putPostLike";
+import { putAccountFriend } from "../utils/api/putAccountFriend";
+import { postFriendRequest } from "../utils/api/postFriendRequest";
 
 function Profile() {
 
@@ -18,7 +20,7 @@ function Profile() {
 
     let [posts, setPosts] = useState(null);
     let [profile, setProfile] = useState(null);
-    let {user, authTokens, logoutUser} = useContext(AuthContext);
+    let {user, userInfo, authTokens, logoutUser} = useContext(AuthContext);
 
     useEffect(() => {
 
@@ -30,15 +32,22 @@ function Profile() {
 
         let fetchPosts = async () =>{
             let data = await getPosts(authTokens, logoutUser);
-            console.log(userId)
             data = data.filter(post => {return post.author === parseInt(userId)})
             
             setPosts(data);
           } 
           fetchPosts();
-    }, []) 
+    }, [])
 
     let [reload, setReload] = useState(true);
+
+    let removeFriend = (friendId) => {
+        putAccountFriend(authTokens, user.user_id, friendId);
+    }
+
+    let addFriend = (friendId) => {
+        postFriendRequest(authTokens, user, friendId)
+    }
 
     function submitPost(e) {
       postPost(e, authTokens, user);
@@ -74,7 +83,7 @@ function Profile() {
                 <NavBar/>
                 <MiniSidebar currentUser={profile.id}/>
                 <div className="profile-container">
-                    <ProfileHeader profile={profile} userId={userId} />
+                    <ProfileHeader profile={profile} userId={userId} removeFriend={removeFriend} addFriend={addFriend}/>
                     <div className="profile-content">
                         <div className="center-profile-content">
                             <div className="flex-profile-content">

@@ -20,7 +20,7 @@ function UserCard(props) {
 
     let handleRemoveFriend = (e) => {
         setFriendRemoved(true);
-        props.removeFriend(e, props.person.id);
+        props.removeFriend(props.person.id);
     }
 
     if (user && props.userFriends && props.incomingFriendRequests && props.sentFriendRequests) {

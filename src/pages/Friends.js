@@ -82,9 +82,8 @@ function Friends() {
         setUserDeleted(false)
     }, [userDeleted])
 
-    let removeFriend = (e, friendToRemove) => {
+    let removeFriend = (friendToRemove) => {
         putAccountFriend(authTokens, user.user_id, friendToRemove);
-        putAccountFriend(authTokens, friendToRemove, user.user_id);
     }
 
     if (accounts && incomingFriendRequests && userFriends) {

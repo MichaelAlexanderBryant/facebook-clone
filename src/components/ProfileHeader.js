@@ -1,10 +1,33 @@
 import defaultProfilePicture from "../assets/default-profile-picture.png";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 
 function ProfileHeader(props) {
 
-    let {user, userInfo} = useContext(AuthContext);
+    let {authTokens, user, userInfo} = useContext(AuthContext);
+    let [wasUnfriended, setWasUnfriended] = useState(!userInfo || !userInfo.friends.includes(props.profile.id));
+    let [disableButton, setDisableButton] = useState(false);
+
+    let handleRemoveFriend = () => {
+        setWasUnfriended(true);
+        setDisableButton(true);
+        let removeFriends = async () => {
+            await props.removeFriend(props.profile.id);
+            setDisableButton(false)
+        }
+        removeFriends();
+        
+    }
+
+    let handleAddFriend = () => {
+        setWasUnfriended(false);
+        setDisableButton(true);
+        let addFriends = async () => {
+            props.addFriend(props.profile.id);
+            setDisableButton(true);
+        }
+        addFriends();
+    }
 
     if (user && userInfo) {
         return (
@@ -26,9 +49,13 @@ function ProfileHeader(props) {
                             {String(user.user_id) === props.userId ? 
                                 <div><button className="header-button" type="button">Edit Profile</button></div>
                                 : <div>
-                                    {userInfo.friends && userInfo.friends.includes(parseInt(props.userId)) ? 
-                                        <button className="header-button" type="button">Unfriend</button>
-                                        :<button className="header-button" type="button">Add Friend</button>}
+                                    {(userInfo.friends && userInfo.friends.includes(parseInt(props.userId))) || !wasUnfriended ? 
+                                        <button className="header-button" type="button"
+                                                        onClick={handleRemoveFriend}
+                                                        disabled={disableButton? 'disabled':null}>Unfriend</button>
+                                        :<button className="header-button" type="button"
+                                                        onClick={handleAddFriend}
+                                                        disabled={disableButton? 'disabled':null}>Add Friend</button>}
                                 </div>}
                         </div>
                     </div>

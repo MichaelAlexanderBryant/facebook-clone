@@ -1,4 +1,4 @@
-let postFriendRequest = async (e, authTokens, user, toUserId) => {
+let postFriendRequest = async (authTokens, user, toUserId) => {
 
     const uploadData = new FormData();
     uploadData.append('from_user', user.user_id);

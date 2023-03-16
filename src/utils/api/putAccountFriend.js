@@ -2,19 +2,21 @@ import { getAccount } from "./getAccount";
 
 let putAccountFriend = async (authTokens, toUserId, fromUserId) => {
     
-    let updateFriends = async (profile) => {
+    let updateFriends = async (profile, toAddOrRemove) => {
       const uploadData = new FormData();
       uploadData.append('first_name', profile.first_name);
       uploadData.append('last_name', profile.last_name);
       uploadData.append('email', profile.email);
 
-      if (!profile.friends.includes(fromUserId) && !profile.friends.includes(toUserId)) {
+      if (profile && !profile.friends.includes(toAddOrRemove)) {
+        console.log("adding friend", profile.friends, toAddOrRemove)
         if (profile.id === toUserId) {
             profile.friends.push(parseInt(fromUserId))
         } else {
             profile.friends.push(parseInt(toUserId))
         }}
       else {
+        console.log("removing friend", profile.friends, toAddOrRemove)
         if (profile.id === toUserId) {
             let index = profile.friends.indexOf(parseInt(fromUserId));
             profile.friends.splice(index,1)
@@ -45,9 +47,9 @@ let putAccountFriend = async (authTokens, toUserId, fromUserId) => {
 
     let fetchAccounts = async () => {
       let toUser = await getAccount(authTokens, toUserId);
-      await updateFriends(toUser);
+      updateFriends(toUser, fromUserId);
       let fromUser = await getAccount(authTokens, fromUserId);
-      await updateFriends(fromUser);
+      updateFriends(fromUser, toUserId);
     } 
 
     await fetchAccounts();
