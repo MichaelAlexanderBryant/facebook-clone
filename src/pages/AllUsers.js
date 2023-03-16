@@ -49,7 +49,7 @@ function AllUsers() {
 
     ,[])
 
-    let addFriend = (e, toUserId) => {
+    let addFriend = (toUserId) => {
         postFriendRequest(authTokens, user, toUserId)
     }
 

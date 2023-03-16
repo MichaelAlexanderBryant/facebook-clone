@@ -9,6 +9,7 @@ import FriendsList from "../components/FriendsList";
 import { putAccountFriend } from "../utils/api/putAccountFriend";
 import { deleteFriendRequest } from "../utils/api/deleteFriendRequest";
 import { getAccount } from "../utils/api/getAccount";
+import { postFriendRequest } from "../utils/api/postFriendRequest";
 
 function Friends() {
 
@@ -82,6 +83,10 @@ function Friends() {
         setUserDeleted(false)
     }, [userDeleted])
 
+    let addFriend = (toUserId) => {
+        postFriendRequest(authTokens, user, toUserId)
+    }
+
     let removeFriend = (friendToRemove) => {
         putAccountFriend(authTokens, user.user_id, friendToRemove);
     }
@@ -102,6 +107,7 @@ function Friends() {
                     <FriendsList accounts={accounts}
                                     userId={userId}
                                     userFriends={userFriends}
+                                    addFriend={addFriend}
                                     removeFriend={removeFriend}/>
                 </div>
             </div>

@@ -35,6 +35,7 @@ function FriendsList(props) {
                                             userFriends={props.userFriends}
                                             incomingFriendRequests={[]}
                                             sentFriendRequests={[]}
+                                            addFriend={props.addFriend}
                                             removeFriend={props.removeFriend}
                                             key={idx} />
                         )} else return null;
