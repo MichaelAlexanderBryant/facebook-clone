@@ -1,4 +1,4 @@
-let getFriendRequestsFromUser = async (authTokens, user, setFriendRequests, logoutUser) => {
+let getFriendRequestsFromUser = async (authTokens, user, logoutUser) => {
     let response = await fetch('http://127.0.0.1:8000/api/accounts/friend_requests/', {
         method: 'GET',
         headers: {
