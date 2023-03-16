@@ -50,12 +50,11 @@ function AllUsers() {
     ,[])
 
     let addFriend = (e, toUserId) => {
-        postFriendRequest(e,authTokens, user, toUserId)
+        postFriendRequest(authTokens, user, toUserId)
     }
 
-    let removeFriend = (e, friendToRemove) => {
+    let removeFriend = (friendToRemove) => {
         putAccountFriend(authTokens, user.user_id, friendToRemove);
-        putAccountFriend(authTokens, friendToRemove, user.user_id);
     }
 
     let acceptFriend = (e) => {

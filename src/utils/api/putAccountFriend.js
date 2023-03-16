@@ -9,14 +9,12 @@ let putAccountFriend = async (authTokens, toUserId, fromUserId) => {
       uploadData.append('email', profile.email);
 
       if (profile && !profile.friends.includes(toAddOrRemove)) {
-        console.log("adding friend", profile.friends, toAddOrRemove)
         if (profile.id === toUserId) {
             profile.friends.push(parseInt(fromUserId))
         } else {
             profile.friends.push(parseInt(toUserId))
         }}
       else {
-        console.log("removing friend", profile.friends, toAddOrRemove)
         if (profile.id === toUserId) {
             let index = profile.friends.indexOf(parseInt(fromUserId));
             profile.friends.splice(index,1)
