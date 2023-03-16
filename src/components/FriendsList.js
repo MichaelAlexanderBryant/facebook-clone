@@ -9,9 +9,14 @@ function FriendsList(props) {
     let [profile, setProfile] = useState(null);
 
     useEffect(() => {
-        getProfile(props.userId, authTokens, setProfile, logoutUser);
+        let fetchProfile = async () => {
+            let data = await getProfile(props.userId, authTokens, logoutUser);
+            setProfile(data);
+        }
+        fetchProfile();
     }, [])
 
+    
     if (profile) {
         return (
             <div>

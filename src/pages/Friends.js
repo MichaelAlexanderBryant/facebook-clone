@@ -88,6 +88,7 @@ function Friends() {
     }
 
     if (accounts && incomingFriendRequests && userFriends) {
+        
         return (
             <div>
                 <NavBar/>

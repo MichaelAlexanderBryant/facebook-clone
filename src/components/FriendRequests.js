@@ -1,10 +1,9 @@
 import UserCard from "./UserCard";
 
 function FriendRequests(props) {
-
     return (
         <div>
-            {(props.incomingFriendRequests && props.incomingFriendRequests.length > 0) ?
+            {(props.incomingFriendRequests && props.incomingFriendRequests[0]) ?
                 <div>
                     <h1>Friend Requests</h1>
                     <div className="card-container">    
